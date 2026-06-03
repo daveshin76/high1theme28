@@ -817,7 +817,7 @@ main{max-width:780px;margin:0 auto;padding:32px 18px 80px}
   <div class="acc-trg" id="at10" onclick="toggleAcc(10)">
     <div class="acc-arr">▾</div>
     <span class="acc-lbl">해 설</span>
-    <span class="acc-ans">①</span>
+    <span class="acc-ans">②</span>
     <span class="acc-hint">클릭하여 해설 열기</span>
   </div>
   <div class="acc-panel" id="ap10">
@@ -942,7 +942,7 @@ main{max-width:780px;margin:0 auto;padding:32px 18px 80px}
   <div class="acc-trg" id="at12" onclick="toggleAcc(12)">
     <div class="acc-arr">▾</div>
     <span class="acc-lbl">해 설</span>
-    <span class="acc-ans">②</span>
+    <span class="acc-ans">①</span>
     <span class="acc-hint">클릭하여 해설 열기</span>
   </div>
   <div class="acc-panel" id="ap12">
@@ -1004,7 +1004,7 @@ main{max-width:780px;margin:0 auto;padding:32px 18px 80px}
   <div class="acc-trg" id="at13" onclick="toggleAcc(13)">
     <div class="acc-arr">▾</div>
     <span class="acc-lbl">해 설</span>
-    <span class="acc-ans">③</span>
+    <span class="acc-ans">②</span>
     <span class="acc-hint">클릭하여 해설 열기</span>
   </div>
   <div class="acc-panel" id="ap13">
@@ -1066,7 +1066,7 @@ main{max-width:780px;margin:0 auto;padding:32px 18px 80px}
   <div class="acc-trg" id="at14" onclick="toggleAcc(14)">
     <div class="acc-arr">▾</div>
     <span class="acc-lbl">해 설</span>
-    <span class="acc-ans">②</span>
+    <span class="acc-ans">③</span>
     <span class="acc-hint">클릭하여 해설 열기</span>
   </div>
   <div class="acc-panel" id="ap14">
@@ -1128,7 +1128,7 @@ main{max-width:780px;margin:0 auto;padding:32px 18px 80px}
   <div class="acc-trg" id="at15" onclick="toggleAcc(15)">
     <div class="acc-arr">▾</div>
     <span class="acc-lbl">해 설</span>
-    <span class="acc-ans">①</span>
+    <span class="acc-ans">②</span>
     <span class="acc-hint">클릭하여 해설 열기</span>
   </div>
   <div class="acc-panel" id="ap15">
@@ -1961,7 +1961,7 @@ main{max-width:780px;margin:0 auto;padding:32px 18px 80px}
 </div>
 </main>
 <script>
-const ANS={1: '①', 2: '②', 3: '②', 4: '④', 5: '①', 6: '②', 7: '②', 8: '⑤', 9: '①', 10: '①', 11: '①', 12: '②', 13: '③', 14: '②', 15: '①', 16: '①', 17: '③', 18: '⑤', 19: '⑤', 20: '①', 21: '④', 22: '④', 23: '①', 24: '①', 25: '①', 26: '②', 27: '②', 28: '②'};
+const ANS={1: '①', 2: '②', 3: '②', 4: '④', 5: '①', 6: '②', 7: '②', 8: '⑤', 9: '①', 10: '②', 11: '①', 12: '①', 13: '②', 14: '③', 15: '②', 16: '①', 17: '③', 18: '⑤', 19: '⑤', 20: '①', 21: '④', 22: '④', 23: '①', 24: '①', 25: '①', 26: '②', 27: '②', 28: '②'};
 const picked={},done={};
 function pick(n,c){if(done[n])return;picked[n]=c;document.querySelectorAll(`.ch[data-q="${n}"]`).forEach(el=>el.classList.toggle('picked',el.dataset.c===c));updateProg();}
 function check(n){if(done[n])return;done[n]=true;const sel=picked[n],cor=ANS[n];document.querySelectorAll(`.ch[data-q="${n}"]`).forEach(el=>{el.classList.remove('picked');if(el.dataset.c===cor)el.classList.add('c-ok');else if(el.dataset.c===sel)el.classList.add('c-no');});const st=document.getElementById('st'+n);if(st){if(!sel){st.textContent='정답: '+cor;st.className='status ok';}else if(sel===cor){st.textContent='✓ 정답입니다!';st.className='status ok';}else{st.textContent='✗ 오답 — 정답: '+cor;st.className='status no';}}document.getElementById('ck'+n)?.classList.add('locked');openAcc(n);}
