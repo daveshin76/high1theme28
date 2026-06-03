@@ -1,0 +1,1972 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>고1 주제 추론 7개년 (2017-2023) · 28제</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700&family=Noto+Sans+KR:wght@400;500;700&display=swap');
+
+:root{
+  --bg:#f0ede8;
+  --card:#fff;
+  --ink:#111;
+  --muted:#666;
+  --rule:#d8d4cc;
+  --navy:#1b2d4f;
+  --gold:#c08b2a;
+  --gold-lt:#fdf6e8;
+  --red:#b91c1c;
+  --green:#15803d;
+  --blue:#1d4e89;
+  --acc-bg:#f3f6fc;
+  --acc-bd:#2d5fa6;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--ink);font-size:15px;line-height:1.7}
+
+/* HEADER */
+header{position:sticky;top:0;z-index:200;background:var(--navy);color:#fff;
+  padding:15px 32px;display:flex;align-items:center;gap:18px;
+  border-bottom:3px solid var(--gold);box-shadow:0 2px 12px rgba(0,0,0,.2)}
+.hdr-badge{font-family:'Noto Serif KR',serif;font-size:2em;font-weight:700;color:var(--gold);line-height:1;flex-shrink:0}
+.hdr-txt h1{font-family:'Noto Serif KR',serif;font-size:.97em;font-weight:700;letter-spacing:.3px}
+.hdr-txt p{font-size:.69em;color:rgba(255,255,255,.45);margin-top:2px;letter-spacing:.5px}
+.hdr-sp{flex:1}
+.prog{display:flex;align-items:center;gap:9px;font-size:.73em;color:rgba(255,255,255,.6)}
+.prog-bar{width:100px;height:5px;background:rgba(255,255,255,.15);border-radius:3px;overflow:hidden}
+.prog-fill{height:100%;background:var(--gold);border-radius:3px;width:0%;transition:width .3s}
+.btn-all{background:var(--gold);color:var(--navy);border:none;border-radius:18px;
+  padding:7px 16px;font-size:.76em;font-weight:700;font-family:'Noto Sans KR',sans-serif;
+  cursor:pointer;white-space:nowrap;transition:opacity .15s}
+.btn-all:hover{opacity:.82}
+
+/* MAIN */
+main{max-width:780px;margin:0 auto;padding:32px 18px 80px}
+
+/* PROBLEM CARD */
+.pcard{background:var(--card);border:1px solid var(--rule);border-radius:10px;
+  margin-bottom:24px;overflow:hidden;box-shadow:0 1px 6px rgba(0,0,0,.06)}
+
+.pcard-hd{display:flex;align-items:baseline;gap:8px;padding:12px 20px 11px;
+  border-bottom:1.5px solid var(--rule);flex-wrap:wrap}
+.pnum{font-size:.86em;font-weight:700;color:var(--ink);flex-shrink:0}
+.pdir{font-size:.86em;font-weight:700;color:var(--ink)}
+.psrc{font-size:.68em;color:var(--muted);margin-left:auto;white-space:nowrap}
+
+.pcard-bd{padding:18px 22px 16px}
+
+/* given sentence – exam style: simple border box */
+.given-lbl{font-size:.67em;font-weight:700;letter-spacing:1.2px;
+  text-transform:uppercase;color:var(--muted);margin-bottom:5px}
+.given-box{border:1px solid #bbb;border-radius:4px;padding:12px 16px;
+  font-size:.96em;line-height:2;margin-bottom:14px;background:#fff}
+
+/* passage – exam style */
+.passage{border:1px solid #ccc;border-radius:4px;padding:16px 20px;
+  font-size:.91em;line-height:2.1;background:#fafafa}
+
+/* footnote */
+.footnote{font-size:.72em;color:var(--muted);margin-top:8px;text-align:right}
+
+/* choices */
+.choices{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px;align-items:center}
+.choice{width:40px;height:40px;border-radius:50%;border:1.5px solid #aaa;background:#fff;
+  font-size:1em;color:var(--ink);display:flex;align-items:center;justify-content:center;
+  cursor:pointer;user-select:none;transition:all .12s}
+.choice:hover{border-color:var(--navy);background:#eef2f9}
+.choice.picked{background:var(--navy);color:#fff;border-color:var(--navy)}
+.choice.c-ok{background:var(--green)!important;color:#fff!important;border-color:var(--green)!important}
+.choice.c-no{background:var(--red)!important;color:#fff!important;border-color:var(--red)!important}
+.btn-chk{margin-left:6px;border:1.5px solid #aaa;border-radius:18px;background:transparent;
+  padding:0 15px;height:40px;font-size:.76em;font-weight:700;color:var(--muted);
+  font-family:'Noto Sans KR',sans-serif;cursor:pointer;transition:all .12s;white-space:nowrap}
+.btn-chk:hover{border-color:var(--navy);color:var(--navy)}
+.btn-chk.locked{opacity:.4;cursor:default}
+.status{margin-top:10px;padding:8px 14px;border-radius:5px;font-size:.8em;font-weight:700;
+  font-family:'Noto Sans KR',sans-serif;text-align:center;display:none}
+.status.ok{background:#dcfce7;color:var(--green);display:block}
+.status.no{background:#fee2e2;color:var(--red);display:block}
+
+/* ACCORDION TRIGGER */
+.acc-trg{display:flex;align-items:center;gap:10px;padding:12px 20px;
+  border-top:1.5px solid var(--rule);cursor:pointer;background:#f8f9fc;
+  user-select:none;transition:background .12s}
+.acc-trg:hover{background:#eef2f9}
+.acc-arr{width:24px;height:24px;border-radius:50%;background:var(--acc-bd);color:#fff;
+  display:flex;align-items:center;justify-content:center;font-size:.72em;font-weight:700;
+  flex-shrink:0;transition:transform .28s}
+.acc-trg.open .acc-arr{transform:rotate(180deg)}
+.acc-lbl{font-size:.8em;font-weight:700;color:var(--acc-bd)}
+.acc-ans{margin-left:8px;background:var(--acc-bd);color:#fff;font-size:.72em;font-weight:700;
+  padding:3px 10px;border-radius:12px}
+.acc-hint{font-size:.7em;color:var(--muted);margin-left:auto}
+
+/* ACCORDION PANEL */
+.acc-panel{max-height:0;overflow:hidden;transition:max-height .48s cubic-bezier(.4,0,.2,1);background:var(--acc-bg)}
+.acc-panel.open{max-height:9999px}
+.acc-inner{padding:22px 24px 26px;border-top:2px solid var(--acc-bd)}
+
+/* given sentence in commentary – with highlights */
+.comm-given{background:var(--gold-lt);border:1px solid #e0c070;border-radius:5px;
+  padding:12px 16px;font-size:.93em;line-height:2;margin-bottom:16px}
+.comm-given-lbl{font-size:.66em;font-weight:700;letter-spacing:1.2px;
+  text-transform:uppercase;color:var(--gold);margin-bottom:5px}
+
+/* passage in commentary – dark bg with highlights */
+.comm-passage{background:#1e1b2e;color:#e8e4dc;border-radius:7px;
+  padding:16px 20px;font-size:.91em;line-height:2.15;margin-bottom:16px}
+
+/* ANNOTATION badge – shows inside commentary only */
+.ann{
+  display:inline;
+  background:#fff3cd;
+  color:#5a3e00;
+  border:1px solid #e6c84a;
+  border-radius:3px;
+  font-size:.78em;
+  padding:1px 5px;
+  font-family:'Noto Sans KR',sans-serif;
+  font-weight:500;
+  vertical-align:middle;
+  line-height:1.4;
+}
+
+/* inner section headers */
+.acc-inner h2{font-family:'Noto Sans KR',sans-serif;font-size:.85em;font-weight:700;
+  border-left:4px solid var(--blue);padding:3px 0 3px 9px;margin:18px 0 10px;color:var(--ink)}
+
+/* 4-axis grid */
+.acc-inner .grid-container{display:grid;grid-template-columns:1fr 1fr;gap:11px;margin-top:11px}
+@media(max-width:560px){
+  .acc-inner .grid-container{grid-template-columns:1fr}
+  .pcard-bd,.acc-inner{padding:14px 13px}
+  header{padding:12px 16px;gap:10px}
+}
+.acc-inner .card{background:#fff;border:1px solid var(--rule);border-radius:7px;
+  padding:12px 13px;font-size:.86em;line-height:1.75}
+.acc-inner .card-title{font-weight:700;font-size:.84em;margin-bottom:7px;
+  display:flex;align-items:center;font-family:'Noto Sans KR',sans-serif}
+.badge{display:inline-block;padding:2px 7px;border-radius:4px;font-size:.72em;color:#fff;margin-right:6px;flex-shrink:0}
+
+/* verification table */
+.acc-inner .verify-table{width:100%;border-collapse:collapse;margin-top:12px;font-size:.84em}
+.acc-inner .verify-table th,.acc-inner .verify-table td{
+  border:1px solid var(--rule);padding:8px 11px;text-align:left;vertical-align:top}
+.acc-inner .verify-table th{background:#eef2f9;font-weight:700;font-size:.79em;
+  font-family:'Noto Sans KR',sans-serif}
+.acc-inner .verify-table td:first-child{text-align:center;font-weight:700;white-space:nowrap}
+
+/* highlight classes */
+.wrong{color:var(--red);font-weight:700}
+.correct{color:var(--green);font-weight:700}
+.meta{color:#b91c1c;font-weight:700;text-decoration:underline}
+.ref{color:var(--blue);background:#dce8f7;padding:1px 4px;border-radius:3px;font-weight:700}
+.lex{color:var(--green);font-weight:700}
+
+.tip-cope{margin-top:16px;background:#f0fdf4;border:1px solid #86efac;
+  border-left:3px solid #15803d;border-radius:0 6px 6px 0;
+  padding:11px 15px;font-size:.85em;line-height:1.8;color:#14532d}
+.tip-cope-lbl{font-size:.69em;font-weight:700;letter-spacing:1.2px;
+  text-transform:uppercase;color:#15803d;margin-bottom:7px}
+.tip-cope ul{list-style:none;padding:0;display:flex;flex-direction:column;gap:6px}
+.tip-cope ul li{padding-left:20px;position:relative;word-break:keep-all}
+.tip-cope ul li::before{content:'💡';position:absolute;left:0;font-size:.85em}
+
+/* ── 주제 추론 전용 ── */
+.blank-passage{border:1px solid #d4d4d4;border-radius:8px;padding:18px 22px;
+  font-size:.91em;line-height:2.15;background:#fafaf9;
+  box-shadow:inset 0 1px 4px rgba(0,0,0,.04)}
+.choices-text{display:flex;flex-direction:column;gap:6px;margin-top:16px}
+.choice-txt{padding:9px 16px;border:1.5px solid #cbd5e1;border-radius:8px;background:#fff;
+  font-size:.88em;color:#1e293b;cursor:pointer;user-select:none;
+  transition:all .15s;line-height:1.5;font-family:'Noto Sans KR',sans-serif}
+.choice-txt:hover{border-color:var(--navy);background:#eef2f9;transform:translateX(2px)}
+.choice-txt.picked{background:var(--navy);color:#fff;border-color:var(--navy);transform:translateX(3px)}
+.choice-txt.c-ok{background:var(--green)!important;color:#fff!important;border-color:var(--green)!important}
+.choice-txt.c-no{background:var(--red)!important;color:#fff!important;border-color:var(--red)!important}
+/* ══ 해설 패널 Premium ══ */
+.comm-wrapper{font-family:'Noto Sans KR',sans-serif;font-size:.88em;line-height:1.82;color:#1e293b}
+.comm-wrapper h2{display:flex;align-items:center;gap:9px;font-size:.92em;font-weight:800;
+  letter-spacing:.3px;color:#fff;background:linear-gradient(135deg,#1e3a8a 0%,#2d5fa6 100%);
+  border-radius:8px;padding:10px 16px;margin:22px 0 14px;border:none;
+  box-shadow:0 2px 8px rgba(30,58,138,.22)}
+.comm-wrapper h3{font-size:.86em;font-weight:700;color:#0f766e;margin:18px 0 9px;
+  padding:6px 0 6px 12px;border-left:3px solid #0d9488;
+  background:linear-gradient(90deg,#f0fdfa 0%,transparent 100%);border-radius:0 6px 6px 0}
+.comm-wrapper .passage{background:linear-gradient(135deg,#f0fdf4 0%,#ecfdf5 100%);
+  border-left:5px solid #16a34a;border-radius:0 10px 10px 0;
+  padding:16px 20px;font-size:.95em;line-height:2;margin-bottom:18px;
+  box-shadow:inset 0 1px 3px rgba(22,163,74,.08),0 1px 4px rgba(0,0,0,.05)}
+.comm-wrapper .analysis-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:14px 0 20px}
+@media(max-width:560px){.comm-wrapper .analysis-grid{grid-template-columns:1fr}}
+.comm-wrapper .box{background:#fff;border:1px solid #e2e8f0;border-radius:10px;
+  padding:14px 16px;font-size:.87em;line-height:1.75;
+  box-shadow:0 2px 8px rgba(0,0,0,.05);transition:box-shadow .2s}
+.comm-wrapper .box:hover{box-shadow:0 4px 16px rgba(0,0,0,.1)}
+.comm-wrapper .framework-step{border-left:4px solid #2563eb;
+  background:linear-gradient(90deg,#eff6ff 0%,#f8fafc 100%);
+  padding:12px 16px;margin:10px 0;border-radius:0 8px 8px 0;
+  font-size:.88em;line-height:1.75;box-shadow:0 1px 4px rgba(37,99,235,.08)}
+.comm-wrapper ul{padding-left:20px;margin:10px 0}
+.comm-wrapper ul li{margin-bottom:5px;font-size:.9em;line-height:1.75}
+.comm-wrapper p{margin:9px 0;font-size:.9em;line-height:1.82;color:#334155}
+.comm-wrapper strong,.comm-wrapper b{color:#1e293b;font-weight:700}
+.comm-wrapper hr{border:none;border-top:1.5px solid #e2e8f0;margin:18px 0}
+.comm-wrapper .ans-line{display:inline-flex;align-items:center;gap:10px;
+  background:linear-gradient(135deg,#dcfce7 0%,#f0fdf4 100%);
+  border:1px solid #86efac;border-left:4px solid #22c55e;
+  border-radius:0 8px 8px 0;padding:10px 18px;margin:12px 0;
+  font-weight:700;color:#15803d;font-size:.92em;
+  box-shadow:0 2px 6px rgba(22,163,74,.12)}
+</style>
+
+<body>
+<header>
+  <div class="hdr-badge">23</div>
+  <div class="hdr-txt">
+    <h1>고1 주제 추론 · 7개년 교육청 학력평가</h1>
+    <p>2017 – 2023 &nbsp;·&nbsp; 28문제 &nbsp;·&nbsp; 4대 축 해설 수록</p>
+  </div>
+  <div class="hdr-sp"></div>
+  <div class="prog">
+    <span id="pt">0/28 풀이 중</span>
+    <div class="prog-bar"><div class="prog-fill" id="pf"></div></div>
+  </div>
+  <button class="btn-all" onclick="checkAll()">전체 정답 보기</button>
+</header>
+<main>
+<div class="pcard" id="p1">
+  <div class="pcard-hd">
+    <span class="pnum">1.</span>
+    <span class="pdir">다음 글의 주제로 가장 적절한 것은?</span>
+    <span class="psrc">2023년 3월 · 서울교육청 23</span>
+  </div>
+  <div class="pcard-bd">
+    <div class="blank-passage">As the social and economic situation of countries got better, wage levels and working conditions improved. Gradually people were given more time off. At the same time, forms of transport improved and it became faster and cheaper to get to places. England's industrial revolution led to many of these changes. Railways, in the nineteenth century, opened up now famous seaside resorts such as Blackpool and Brighton. With the railways came many large hotels. In Canada, for example, the new coast-to-coast railway system made possible the building of such famous hotels as Banff Springs and Chateau Lake Louise in the Rockies. Later, the arrival of air transport opened up more of the world and led to tourism growth.</div>
+    
+    <div class="choices-text">
+      <div class="choice-txt ch" data-q="1" data-c="①" onclick="pick(1,'①')">① factors that caused tourism expansion</div>
+      <div class="choice-txt ch" data-q="1" data-c="②" onclick="pick(1,'②')">② discomfort at a popular tourist destination</div>
+      <div class="choice-txt ch" data-q="1" data-c="③" onclick="pick(1,'③')">③ importance of tourism in society and economy</div>
+      <div class="choice-txt ch" data-q="1" data-c="④" onclick="pick(1,'④')">④ negative impacts of tourism on the environment</div>
+      <div class="choice-txt ch" data-q="1" data-c="⑤" onclick="pick(1,'⑤')">⑤ various types of tourism and their characteristics</div>
+      <button class="btn-chk" id="ck1" onclick="check(1)">정답 확인</button>
+    </div>
+    <div class="status" id="st1"></div>
+  </div>
+  <div class="acc-trg" id="at1" onclick="toggleAcc(1)">
+    <div class="acc-arr">▾</div>
+    <span class="acc-lbl">해 설</span>
+    <span class="acc-ans">①</span>
+    <span class="acc-hint">클릭하여 해설 열기</span>
+  </div>
+  <div class="acc-panel" id="ap1">
+    <div class="acc-inner">
+      <div class="comm-wrapper">
+<h2>🔍 4대 축 심층 분석 리포트</h2>
+        
+        <h3>1. 담화 표지 및 논리적 전개 (Metadiscourse)</h3>
+        <p>지문은 시간 흐름과 인과관계를 나타내는 <b>"As"</b>, <b>"At the same time"</b>, <b>"Later"</b> 등의 표지를 사용하여, 사회경제적 발전과 운송 수단의 혁신이 어떻게 관광 산업의 성장을 이끌어냈는지 순차적으로 설명하고 있습니다.</p>
+
+        <h3>2. 개념 층위 분석 (Concept Hierarchy)</h3>
+        <div class="analysis-grid">
+            <div class="box"><b>거시(Macro):</b> 사회·경제적 상황 개선 및 산업 혁명이 가져온 삶의 질 향상(여가 시간의 증가)</div>
+            <div class="box"><b>미시(Micro):</b> 철도 및 항공 운송 기술의 발달이 구체적인 관광지(리조트, 호텔) 개발을 가능하게 한 사례</div>
+        </div>
+
+        <h3>3. 어휘 연쇄 및 인캡슐레이션 (Lexical Chain)</h3>
+        <ul>
+            <li><b>원인:</b> Social/economic situation better ➔ wage/conditions improved ➔ time off</li>
+            <li><b>촉매제:</b> Transport ➔ Railways ➔ Air transport</li>
+            <li><b>결과 도출:</b> Seaside resorts ➔ Famous hotels ➔ <b>Tourism growth</b></li>
+        </ul>
+
+        <h3>4. 논리 구조도 (Logical Framework Tree)</h3>
+        <div class="framework-step">
+            <b>Step 1 (Trigger):</b> 경제 발전과 노동 환경 개선 → 사람들에게 '여가 시간' 부여
+        </div>
+        <div class="framework-step">
+            <b>Step 2 (Medium):</b> 산업 혁명과 운송 기술(철도, 항공)의 비약적 발전 → 접근성 향상 및 비용 절감
+        </div>
+        <div class="framework-step">
+            <b>Step 3 (Encapsulation):</b> 위 요인들의 결합으로 인한 관광의 대중화 → 최종 주제: <b>관광 확장(Tourism expansion)을 야기한 요인(factors)</b>
+        </div>
+    </div>
+</div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="pcard" id="p2">
+  <div class="pcard-hd">
+    <span class="pnum">2.</span>
+    <span class="pdir">다음 글의 주제로 가장 적절한 것은?</span>
+    <span class="psrc">2023년 6월 · 부산교육청 23</span>
+  </div>
+  <div class="pcard-bd">
+    <div class="blank-passage">We tend to believe that we possess a host of socially desirable characteristics, and that we are free of most of those that are socially undesirable. For example, a large majority of the general public thinks that they are more intelligent, more fair-minded, less prejudiced, and more skilled behind the wheel of an automobile than the average person. This phenomenon is so reliable and ubiquitous that it has come to be known as the "Lake Wobegon effect," after Garrison Keillor's fictional community where "the women are strong, the men are good-looking, and all the children are above average." A survey of one million high school seniors found that 70% thought they were above average in leadership ability, and only 2% thought they were below average. In terms of ability to get along with others, <em>all</em> students thought they were above average, 60% thought they were in the top 10%, and 25% thought they were in the top 1%!</div>
+    <p class="footnote">*ubiquitous: 도처에 있는</p>
+    <div class="choices-text">
+      <div class="choice-txt ch" data-q="2" data-c="①" onclick="pick(2,'①')">① importance of having a positive self-image as a leader</div>
+      <div class="choice-txt ch" data-q="2" data-c="②" onclick="pick(2,'②')">② our common belief that we are better than average</div>
+      <div class="choice-txt ch" data-q="2" data-c="③" onclick="pick(2,'③')">③ our tendency to think others are superior to us</div>
+      <div class="choice-txt ch" data-q="2" data-c="④" onclick="pick(2,'④')">④ reasons why we always try to be above average</div>
+      <div class="choice-txt ch" data-q="2" data-c="⑤" onclick="pick(2,'⑤')">⑤ danger of prejudice in building healthy social networks</div>
+      <button class="btn-chk" id="ck2" onclick="check(2)">정답 확인</button>
+    </div>
+    <div class="status" id="st2"></div>
+  </div>
+  <div class="acc-trg" id="at2" onclick="toggleAcc(2)">
+    <div class="acc-arr">▾</div>
+    <span class="acc-lbl">해 설</span>
+    <span class="acc-ans">②</span>
+    <span class="acc-hint">클릭하여 해설 열기</span>
+  </div>
+  <div class="acc-panel" id="ap2">
+    <div class="acc-inner">
+      <div class="comm-wrapper">
+<h2>🔍 4대 축 심층 분석 리포트</h2>
+        
+        <h3>1. 담화 표지 및 논리적 전개 (Metadiscourse)</h3>
+        <p>글쓴이는 <b>"For example"</b>을 사용하여 일반적인 심리적 경향을 구체적인 조사 결과로 뒷받침합니다. 또한 <b>"This phenomenon"</b>이라는 지시어를 통해 앞서 언급된 경향을 'Lake Wobegon effect'라는 용어로 정의하며 논지를 강화합니다.</p>
+
+        <h3>2. 개념 층위 분석 (Concept Hierarchy)</h3>
+        <div class="analysis-grid">
+            <div class="box"><b>거시(Macro):</b> 사람들은 누구나 자신을 실제보다 긍정적으로 평가하고, 평균 이상이라고 믿는 경향이 있음</div>
+            <div class="box"><b>미시(Micro):</b> 운전 기술, 지능, 리더십, 대인 관계 능력 등에 대한 설문조사를 통해 증명된 통계적 데이터</div>
+        </div>
+
+        <h3>3. 어휘 연쇄 및 인캡슐레이션 (Lexical Chain)</h3>
+        <ul>
+            <li><b>긍정적 믿음:</b> socially desirable characteristics ➔ intelligent, fair-minded, less prejudiced ➔ above average</li>
+            <li><b>현상 정의:</b> Lake Wobegon effect ➔ reliable and ubiquitous phenomenon</li>
+            <li><b>구체화(Encapsulation):</b> Survey of high school seniors ➔ 70% above average ➔ <b>our belief that we are better than average</b></li>
+        </ul>
+
+        <h3>4. 논리 구조도 (Logical Framework Tree)</h3>
+        <div class="framework-step">
+            <b>Step 1 (Trigger):</b> 인간은 자신의 긍정적 자질은 과대평가하고 부정적 자질은 부정하는 경향이 있음
+        </div>
+        <div class="framework-step">
+            <b>Step 2 (Medium):</b> 다양한 사회적 조사에서 확인되는 'Lake Wobegon effect'(모두가 평균 이상이라 믿는 현상) 사례 제시
+        </div>
+        <div class="framework-step">
+            <b>Step 3 (Encapsulation):</b> 사람들은 보편적으로 실제보다 자신을 더 낫게 평가함 → 최종 주제: <b>평균보다 낫다고 믿는 우리의 공통적 인식</b>
+        </div>
+    </div>
+</div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="pcard" id="p3">
+  <div class="pcard-hd">
+    <span class="pnum">3.</span>
+    <span class="pdir">다음 글의 주제로 가장 적절한 것은?</span>
+    <span class="psrc">2023년 9월 · 인천교육청 23</span>
+  </div>
+  <div class="pcard-bd">
+    <div class="blank-passage">The interaction of workers from different cultural backgrounds with the host population might increase productivity due to positive externalities like knowledge spillovers. This is only an advantage up to a certain degree. When the variety of backgrounds is too large, fractionalization may cause excessive transaction costs for communication, which may lower productivity. Diversity not only impacts the labour market, but may also affect the quality of life in a location. A tolerant native population may value a multicultural city or region because of an increase in the range of available goods and services. On the other hand, diversity could be perceived as an unattractive feature if natives perceive it as a distortion of what they consider to be their national identity. They might even discriminate against other ethnic groups and they might fear that social conflicts between different foreign nationalities are imported into their own neighbourhood.</div>
+    <p class="footnote">*externality: 외부 효과  **fractionalization: 분열</p>
+    <div class="choices-text">
+      <div class="choice-txt ch" data-q="3" data-c="①" onclick="pick(3,'①')">① roles of culture in ethnic groups</div>
+      <div class="choice-txt ch" data-q="3" data-c="②" onclick="pick(3,'②')">② contrastive aspects of cultural diversity</div>
+      <div class="choice-txt ch" data-q="3" data-c="③" onclick="pick(3,'③')">③ negative perspectives of national identity</div>
+      <div class="choice-txt ch" data-q="3" data-c="④" onclick="pick(3,'④')">④ factors of productivity differences across countries</div>
+      <div class="choice-txt ch" data-q="3" data-c="⑤" onclick="pick(3,'⑤')">⑤ policies to protect minorities and prevent discrimination</div>
+      <button class="btn-chk" id="ck3" onclick="check(3)">정답 확인</button>
+    </div>
+    <div class="status" id="st3"></div>
+  </div>
+  <div class="acc-trg" id="at3" onclick="toggleAcc(3)">
+    <div class="acc-arr">▾</div>
+    <span class="acc-lbl">해 설</span>
+    <span class="acc-ans">②</span>
+    <span class="acc-hint">클릭하여 해설 열기</span>
+  </div>
+  <div class="acc-panel" id="ap3">
+    <div class="acc-inner">
+      <div class="comm-wrapper">
+<h2>🔍 4대 축 심층 분석 리포트</h2>
+        
+        <h3>1. 담화 표지 및 논리적 전개 (Metadiscourse)</h3>
+        <p>글은 <b>"On the other hand"</b>를 기점으로 문화적 다양성이 가져오는 상반된 측면을 대조하며 논리를 전개합니다. 노동 시장의 생산성 측면(지식 파급 효과 vs 거래 비용 증가)과 삶의 질 측면(다양한 서비스 제공 vs 정체성 왜곡 및 갈등 우려)을 양면적으로 다룹니다.</p>
+
+        <h3>2. 개념 층위 분석 (Concept Hierarchy)</h3>
+        <div class="analysis-grid">
+            <div class="box"><b>거시(Macro):</b> 문화적 다양성(Diversity)이 사회 전반(노동 시장 및 삶의 질)에 미치는 영향의 이중성</div>
+            <div class="box"><b>미시(Micro):</b> 생산성 향상/서비스 확대(긍정)와 거래 비용 증가/사회적 갈등 우려(부정)의 구체적 근거</div>
+        </div>
+
+        <h3>3. 어휘 연쇄 및 인캡슐레이션 (Lexical Chain)</h3>
+        <ul>
+            <li><b>긍정적 측면:</b> increase productivity ➔ knowledge spillovers ➔ increase in goods and services</li>
+            <li><b>부정적 측면:</b> fractionalization ➔ excessive transaction costs ➔ distortion of national identity ➔ social conflicts</li>
+            <li><b>핵심 통합(Encapsulation):</b> <b>Contrastive aspects of cultural diversity</b></li>
+        </ul>
+
+        <h3>4. 논리 구조도 (Logical Framework Tree)</h3>
+        <div class="framework-step">
+            <b>Step 1 (Trigger):</b> 문화적 다양성이 노동 시장과 삶의 질에 미치는 영향 분석
+        </div>
+        <div class="framework-step">
+            <b>Step 2 (Medium):</b> 긍정적 효과(지식 공유, 서비스 확대)와 부정적 효과(소통 비용 증가, 정체성 갈등)의 병렬적 제시
+        </div>
+        <div class="framework-step">
+            <b>Step 3 (Encapsulation):</b> 다양성이 가진 명과 암을 동시에 조명함 → 최종 주제: <b>문화적 다양성의 대조적 측면들</b>
+        </div>
+    </div>
+</div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="pcard" id="p4">
+  <div class="pcard-hd">
+    <span class="pnum">4.</span>
+    <span class="pdir">다음 글의 주제로 가장 적절한 것은?</span>
+    <span class="psrc">2023년 11월 · 경기도교육청 23</span>
+  </div>
+  <div class="pcard-bd">
+    <div class="blank-passage">Nearly everything has to go through your mouth to get to the rest of you, from food and air to bacteria and viruses. A healthy mouth can help your body get what it needs and prevent it from harm — with adequate space for air to travel to your lungs, and healthy teeth and gums that prevent harmful microorganisms from entering your bloodstream. From the moment you are created, oral health affects every aspect of your life. What happens in the mouth is usually just the tip of the iceberg and a reflection of what is happening in other parts of the body. Poor oral health can be a cause of a disease that affects the entire body. The microorganisms in an unhealthy mouth can enter the bloodstream and travel anywhere in the body, posing serious health risks.</div>
+    <p class="footnote">*microorganism: 미생물</p>
+    <div class="choices-text">
+      <div class="choice-txt ch" data-q="4" data-c="①" onclick="pick(4,'①')">① the way the immune system fights viruses</div>
+      <div class="choice-txt ch" data-q="4" data-c="②" onclick="pick(4,'②')">② the effect of unhealthy eating habits on the body</div>
+      <div class="choice-txt ch" data-q="4" data-c="③" onclick="pick(4,'③')">③ the difficulty in raising awareness about oral health</div>
+      <div class="choice-txt ch" data-q="4" data-c="④" onclick="pick(4,'④')">④ the importance of oral health and its impact on the body</div>
+      <div class="choice-txt ch" data-q="4" data-c="⑤" onclick="pick(4,'⑤')">⑤ the relationship between oral health and emotional well-being</div>
+      <button class="btn-chk" id="ck4" onclick="check(4)">정답 확인</button>
+    </div>
+    <div class="status" id="st4"></div>
+  </div>
+  <div class="acc-trg" id="at4" onclick="toggleAcc(4)">
+    <div class="acc-arr">▾</div>
+    <span class="acc-lbl">해 설</span>
+    <span class="acc-ans">④</span>
+    <span class="acc-hint">클릭하여 해설 열기</span>
+  </div>
+  <div class="acc-panel" id="ap4">
+    <div class="acc-inner">
+      <div class="comm-wrapper">
+<h2>🔍 4대 축 심층 분석 리포트</h2>
+        
+        <h3>1. 담화 표지 및 논리적 전개 (Metadiscourse)</h3>
+        <p>글은 <b>"Nearly everything..."</b>으로 시작하여 입이 신체로 통하는 관문임을 명시합니다. <b>"From the moment..."</b>를 통해 생애 전반에 걸친 중요성을 강조하고, <b>"What happens in..."</b>과 <b>"Poor oral health..."</b>를 연결하여 입과 신체 건강의 밀접한 인과관계를 설명합니다.</p>
+
+        <h3>2. 개념 층위 분석 (Concept Hierarchy)</h3>
+        <div class="analysis-grid">
+            <div class="box"><b>거시(Macro):</b> 구강 건강은 신체 전반의 건강을 결정짓는 핵심적인 요소임</div>
+            <div class="box"><b>미시(Micro):</b> 호흡 원활, 미생물 차단, 혈류를 통한 질병 전파 가능성 등 구체적인 생물학적 작용</div>
+        </div>
+
+        <h3>3. 어휘 연쇄 및 인캡슐레이션 (Lexical Chain)</h3>
+        <ul>
+            <li><b>구강의 기능:</b> Gateway (food, air, bacteria, viruses) ➔ prevent harm ➔ healthy teeth and gums</li>
+            <li><b>상호 연결성:</b> Tip of the iceberg ➔ reflection of the body ➔ affect entire body</li>
+            <li><b>위험 요소(Encapsulation):</b> Microorganisms ➔ enter bloodstream ➔ travel anywhere ➔ <b>Impact on the body</b></li>
+        </ul>
+
+        <h3>4. 논리 구조도 (Logical Framework Tree)</h3>
+        <div class="framework-step">
+            <b>Step 1 (Trigger):</b> 입은 신체로 들어오는 모든 것의 관문이며, 구강 건강은 전 생애에 영향을 미침
+        </div>
+        <div class="framework-step">
+            <b>Step 2 (Medium):</b> 건강한 구강은 신체를 보호하는 반면, 건강하지 못한 구강은 유해 미생물의 침투 경로가 됨
+        </div>
+        <div class="framework-step">
+            <b>Step 3 (Encapsulation):</b> 구강 내 상태는 신체 전체 상태를 반영함 → 최종 주제: <b>구강 건강의 중요성과 신체에 미치는 영향</b>
+        </div>
+    </div>
+</div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="pcard" id="p5">
+  <div class="pcard-hd">
+    <span class="pnum">5.</span>
+    <span class="pdir">다음 글의 주제로 가장 적절한 것은?</span>
+    <span class="psrc">2022년 3월 · 서울교육청 22</span>
+  </div>
+  <div class="pcard-bd">
+    <div class="blank-passage">Many people view sleep as merely a "down time" when their brain shuts off and their body rests. In a rush to meet work, school, family, or household responsibilities, people cut back on their sleep, thinking it won't be a problem, because all of these other activities seem much more important. But research reveals that a number of vital tasks carried out during sleep help to maintain good health and enable people to function at their best. While you sleep, your brain is hard at work forming the pathways necessary for learning and creating memories and new insights. Without enough sleep, you can't focus and pay attention or respond quickly. A lack of sleep may even cause mood problems. In addition, growing evidence shows that a continuous lack of sleep increases the risk for developing serious diseases.</div>
+    <p class="footnote">*vital: 매우 중요한</p>
+    <div class="choices-text">
+      <div class="choice-txt ch" data-q="5" data-c="①" onclick="pick(5,'①')">① 수면은 건강 유지와 최상의 기능 발휘에 도움이 된다.</div>
+      <div class="choice-txt ch" data-q="5" data-c="②" onclick="pick(5,'②')">② 업무량이 증가하면 필요한 수면 시간도 증가한다.</div>
+      <div class="choice-txt ch" data-q="5" data-c="③" onclick="pick(5,'③')">③ 균형 잡힌 식단을 유지하면 뇌 기능이 향상된다.</div>
+      <div class="choice-txt ch" data-q="5" data-c="④" onclick="pick(5,'④')">④ 불면증은 주위 사람들에게 부정적인 영향을 미친다.</div>
+      <div class="choice-txt ch" data-q="5" data-c="⑤" onclick="pick(5,'⑤')">⑤ 꿈의 내용은 깨어 있는 시간 동안의 경험을 반영한다.</div>
+      <button class="btn-chk" id="ck5" onclick="check(5)">정답 확인</button>
+    </div>
+    <div class="status" id="st5"></div>
+  </div>
+  <div class="acc-trg" id="at5" onclick="toggleAcc(5)">
+    <div class="acc-arr">▾</div>
+    <span class="acc-lbl">해 설</span>
+    <span class="acc-ans">①</span>
+    <span class="acc-hint">클릭하여 해설 열기</span>
+  </div>
+  <div class="acc-panel" id="ap5">
+    <div class="acc-inner">
+      <div class="comm-wrapper">
+<h2>🔍 4대 축 심층 분석 리포트</h2>
+        
+        <h3>1. 담화 표지 및 논리적 전개 (Metadiscourse)</h3>
+        <p>글은 <b>"Many people view..."</b>라는 통념을 제시한 뒤, <b>"But"</b>을 사용하여 이를 반박하는 연구 결과를 도입합니다. 이후 수면의 긍정적 역할(학습/기억)과 수면 부족의 부정적 결과(집중력 저하/질병 위험)를 대조하여 논지를 전개합니다.</p>
+
+        <h3>2. 개념 층위 분석 (Concept Hierarchy)</h3>
+        <div class="analysis-grid">
+            <div class="box"><b>거시(Macro):</b> 수면은 단순한 휴식이 아니라 건강과 최상의 기능 수행을 위한 필수적인 과정임</div>
+            <div class="box"><b>미시(Micro):</b> 뇌의 학습 경로 형성, 기억 생성, 집중력 유지, 질병 위험 예방 등 구체적 기능</div>
+        </div>
+
+        <h3>3. 어휘 연쇄 및 인캡슐레이션 (Lexical Chain)</h3>
+        <ul>
+            <li><b>오해:</b> Down time ➔ brain shuts off ➔ cut back on sleep</li>
+            <li><b>진실:</b> Vital tasks ➔ maintain good health ➔ function at their best</li>
+            <li><b>결과(Encapsulation):</b> Learning/memory pathways ➔ focus/attention ➔ <b>avoiding serious diseases</b></li>
+        </ul>
+
+        <h3>4. 논리 구조도 (Logical Framework Tree)</h3>
+        <div class="framework-step">
+            <b>Step 1 (Trigger):</b> 사람들은 수면을 단순히 뇌가 멈추는 휴식 시간으로 간주하여 줄이려 함
+        </div>
+        <div class="framework-step">
+            <b>Step 2 (Medium):</b> 실제 수면 중에는 학습, 기억, 통찰을 위한 뇌의 활동이 활발히 이루어짐
+        </div>
+        <div class="framework-step">
+            <b>Step 3 (Encapsulation):</b> 수면 부족은 집중력 저하와 질병 위험을 초래함 → 최종 주제: <b>수면은 건강 유지와 최상의 기능 발휘에 도움이 된다</b>
+        </div>
+    </div>
+</div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="pcard" id="p6">
+  <div class="pcard-hd">
+    <span class="pnum">6.</span>
+    <span class="pdir">다음 글의 주제로 가장 적절한 것은?</span>
+    <span class="psrc">2022년 6월 · 부산교육청 23</span>
+  </div>
+  <div class="pcard-bd">
+    <div class="blank-passage">Every day, children explore and construct relationships among objects. Frequently, these relationships focus on how much or how many of something exists. Thus, children count — "One cookie, two shoes, three candles on the birthday cake, four children in the sandbox." Children compare — "Which has more? Which has fewer? Will there be enough?" Children calculate — "How many will fit? Now, I have five. I need one more." In all of these instances, children are developing a notion of quantity. Children reveal and investigate mathematical concepts through their own activities or experiences, such as figuring out how many crackers to take at snack time or sorting shells into piles.</div>
+    
+    <div class="choices-text">
+      <div class="choice-txt ch" data-q="6" data-c="①" onclick="pick(6,'①')">① difficulties of children in learning how to count</div>
+      <div class="choice-txt ch" data-q="6" data-c="②" onclick="pick(6,'②')">② how children build mathematical understanding</div>
+      <div class="choice-txt ch" data-q="6" data-c="③" onclick="pick(6,'③')">③ why fingers are used in counting objects</div>
+      <div class="choice-txt ch" data-q="6" data-c="④" onclick="pick(6,'④')">④ importance of early childhood education</div>
+      <div class="choice-txt ch" data-q="6" data-c="⑤" onclick="pick(6,'⑤')">⑤ advantages of singing number songs</div>
+      <button class="btn-chk" id="ck6" onclick="check(6)">정답 확인</button>
+    </div>
+    <div class="status" id="st6"></div>
+  </div>
+  <div class="acc-trg" id="at6" onclick="toggleAcc(6)">
+    <div class="acc-arr">▾</div>
+    <span class="acc-lbl">해 설</span>
+    <span class="acc-ans">②</span>
+    <span class="acc-hint">클릭하여 해설 열기</span>
+  </div>
+  <div class="acc-panel" id="ap6">
+    <div class="acc-inner">
+      <div class="comm-wrapper">
+<h2>🔍 4대 축 심층 분석 리포트</h2>
+        
+        <h3>1. 담화 표지 및 논리적 전개 (Metadiscourse)</h3>
+        <p>글은 <b>"Thus"</b>라는 인과 관계 표지를 통해 아이들이 일상에서 수행하는 구체적인 행위(세고, 비교하고, 계산하는 것)가 결국 '수량의 개념'을 발달시키는 과정임을 논리적으로 연결하고 있습니다.</p>
+
+        <h3>2. 개념 층위 분석 (Concept Hierarchy)</h3>
+        <div class="analysis-grid">
+            <div class="box"><b>거시(Macro):</b> 아이들은 일상적인 경험과 활동을 통해 수학적 개념을 스스로 정립해 나감</div>
+            <div class="box"><b>미시(Micro):</b> 사물을 세기, 양 비교하기, 계산하기와 같은 구체적인 상호작용 사례들</div>
+        </div>
+
+        <h3>3. 어휘 연쇄 및 인캡슐레이션 (Lexical Chain)</h3>
+        <ul>
+            <li><b>활동 유형:</b> Explore and construct relationships ➔ Count, Compare, Calculate</li>
+            <li><b>수학적 개념 형성:</b> Notion of quantity ➔ Mathematical concepts</li>
+            <li><b>경험적 학습(Encapsulation):</b> Activities or experiences (snack time, sorting shells) ➔ <b>How children build mathematical understanding</b></li>
+        </ul>
+
+        <h3>4. 논리 구조도 (Logical Framework Tree)</h3>
+        <div class="framework-step">
+            <b>Step 1 (Trigger):</b> 아이들은 매일 사물 간의 관계를 탐색하며 수량적 속성에 집중함
+        </div>
+        <div class="framework-step">
+            <b>Step 2 (Medium):</b> 세기, 비교하기, 계산하기와 같은 일상 활동을 통해 수량 개념을 발달시킴
+        </div>
+        <div class="framework-step">
+            <b>Step 3 (Encapsulation):</b> 일상 경험을 통해 수학적 개념을 스스로 발견함 → 최종 주제: <b>아동이 수학적 이해를 구축하는 방법</b>
+        </div>
+    </div>
+</div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="pcard" id="p7">
+  <div class="pcard-hd">
+    <span class="pnum">7.</span>
+    <span class="pdir">다음 글의 주제로 가장 적절한 것은?</span>
+    <span class="psrc">2022년 9월 · 인천교육청 23</span>
+  </div>
+  <div class="pcard-bd">
+    <div class="blank-passage">For creatures like us, evolution smiled upon those with a strong need to belong. Survival and reproduction are the criteria of success by natural selection, and forming relationships with other people can be useful for both survival and reproduction. Groups can share resources, care for sick members, scare off predators, fight together against enemies, divide tasks so as to improve efficiency, and contribute to survival in many other ways. In particular, if an individual and a group want the same resource, the group will generally prevail, so competition for resources would especially favor a need to belong. Belongingness will likewise promote reproduction, such as by bringing potential mates into contact with each other, and in particular by keeping parents together to care for their children, who are much more likely to survive if they have more than one caregiver.</div>
+    
+    <div class="choices-text">
+      <div class="choice-txt ch" data-q="7" data-c="①" onclick="pick(7,'①')">① skills for the weak to survive modern life</div>
+      <div class="choice-txt ch" data-q="7" data-c="②" onclick="pick(7,'②')">② usefulness of belonging for human evolution</div>
+      <div class="choice-txt ch" data-q="7" data-c="③" onclick="pick(7,'③')">③ ways to avoid competition among social groups</div>
+      <div class="choice-txt ch" data-q="7" data-c="④" onclick="pick(7,'④')">④ roles of social relationships in children's education</div>
+      <div class="choice-txt ch" data-q="7" data-c="⑤" onclick="pick(7,'⑤')">⑤ differences between two major evolutionary theories</div>
+      <button class="btn-chk" id="ck7" onclick="check(7)">정답 확인</button>
+    </div>
+    <div class="status" id="st7"></div>
+  </div>
+  <div class="acc-trg" id="at7" onclick="toggleAcc(7)">
+    <div class="acc-arr">▾</div>
+    <span class="acc-lbl">해 설</span>
+    <span class="acc-ans">②</span>
+    <span class="acc-hint">클릭하여 해설 열기</span>
+  </div>
+  <div class="acc-panel" id="ap7">
+    <div class="acc-inner">
+      <div class="comm-wrapper">
+<h2>🔍 4대 축 심층 분석 리포트</h2>
+        
+        <h3>1. 담화 표지 및 논리적 전개 (Metadiscourse)</h3>
+        <p>글은 <b>"survival and reproduction"</b>을 자연선택의 성공 기준으로 제시하며 논리를 시작합니다[cite: 1]. 이후 <b>"In particular"</b>와 <b>"likewise"</b>를 사용하여 소속감이 생존과 번식에 각각 어떻게 기여하는지 구체적으로 설명합니다[cite: 1].</p>
+
+        <h3>2. 개념 층위 분석 (Concept Hierarchy)</h3>
+        <div class="analysis-grid">
+            <div class="box"><b>거시(Macro):</b> 인간의 '소속감에 대한 욕구'는 자연선택을 통한 진화 과정에서 생존과 번식에 필수적이었음[cite: 1]</div>
+            <div class="box"><b>미시(Micro):</b> 자원 공유, 포식자 방어, 효율적 작업 분담, 자녀 양육 등 소속감이 주는 실질적 이점[cite: 1]</div>
+        </div>
+
+        <h3>3. 어휘 연쇄 및 인캡슐레이션 (Lexical Chain)</h3>
+        <ul>
+            <li><b>진화적 가치:</b> Natural selection ➔ Survival and reproduction ➔ Need to belong[cite: 1]</li>
+            <li><b>생존 전략:</b> Share resources ➔ Scare off predators ➔ Divide tasks ➔ Efficiency[cite: 1]</li>
+            <li><b>번식 전략(Encapsulation):</b> Contact with mates ➔ Parents together ➔ Care for children ➔ <b>Usefulness of belonging</b>[cite: 1]</li>
+        </ul>
+
+        <h3>4. 논리 구조도 (Logical Framework Tree)</h3>
+        <div class="framework-step">
+            <b>Step 1 (Trigger):</b> 인간은 진화 과정에서 생존과 번식을 위해 소속감을 강하게 추구하게 됨[cite: 1]
+        </div>
+        <div class="framework-step">
+            <b>Step 2 (Medium):</b> 집단 생활을 통해 자원 획득, 방어, 작업 효율성 증대 및 자녀의 생존율을 높임[cite: 1]
+        </div>
+        <div class="framework-step">
+            <b>Step 3 (Encapsulation):</b> 소속감은 인간의 진화에 있어 필수적인 도구임 → 최종 주제: <b>인간 진화에서 소속감의 유용성</b>[cite: 1]
+        </div>
+    </div>
+</div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="pcard" id="p8">
+  <div class="pcard-hd">
+    <span class="pnum">8.</span>
+    <span class="pdir">다음 글의 주제로 가장 적절한 것은?</span>
+    <span class="psrc">2022년 11월 · 경기도교육청 23</span>
+  </div>
+  <div class="pcard-bd">
+    <div class="blank-passage">The most remarkable and unbelievable consequence of melting ice and rising seas is that together they are a kind of time machine, so real that they are altering the duration of our day. It works like this: As the glaciers melt and the seas rise, gravity forces more water toward the equator. This changes the shape of the Earth ever so slightly, making it fatter around the middle, which in turns slows the rotation of the planet similarly to the way a ballet dancer slows her spin by spreading out her arms. The slowdown isn't much, just a few thousandths of a second each year, but like the barely noticeable jump of rising seas every year, it adds up. When dinosaurs lived on the Earth, a day lasted only about twenty-three hours.</div>
+    
+    <div class="choices-text">
+      <div class="choice-txt ch" data-q="8" data-c="①" onclick="pick(8,'①')">① cause of rising temperatures on the Earth</div>
+      <div class="choice-txt ch" data-q="8" data-c="②" onclick="pick(8,'②')">② principles of planets maintaining their shapes</div>
+      <div class="choice-txt ch" data-q="8" data-c="③" onclick="pick(8,'③')">③ implications of melting ice on marine biodiversity</div>
+      <div class="choice-txt ch" data-q="8" data-c="④" onclick="pick(8,'④')">④ way to keep track of time without using any device</div>
+      <div class="choice-txt ch" data-q="8" data-c="⑤" onclick="pick(8,'⑤')">⑤ impact of melting ice and rising seas on the length of a day</div>
+      <button class="btn-chk" id="ck8" onclick="check(8)">정답 확인</button>
+    </div>
+    <div class="status" id="st8"></div>
+  </div>
+  <div class="acc-trg" id="at8" onclick="toggleAcc(8)">
+    <div class="acc-arr">▾</div>
+    <span class="acc-lbl">해 설</span>
+    <span class="acc-ans">⑤</span>
+    <span class="acc-hint">클릭하여 해설 열기</span>
+  </div>
+  <div class="acc-panel" id="ap8">
+    <div class="acc-inner">
+      <div class="comm-wrapper">
+<h2>🔍 4대 축 심층 분석 리포트</h2>
+        
+        <h3>1. 담화 표지 및 논리적 전개 (Metadiscourse)</h3>
+        <p>글쓴이는 <b>"It works like this:"</b>를 사용하여 빙하가 녹고 해수면이 상승하는 과정이 어떻게 지구의 자전 속도에 영향을 미치는지 그 인과적 메커니즘을 단계별로 설명합니다[cite: 1].</p>
+
+        <h3>2. 개념 층위 분석 (Concept Hierarchy)</h3>
+        <div class="analysis-grid">
+            <div class="box"><b>거시(Macro):</b> 빙하 용해와 해수면 상승은 지구의 물리적 형태를 변화시켜 지구 자전의 속도(하루의 길이)를 변화시킴[cite: 1]</div>
+            <div class="box"><b>미시(Micro):</b> 적도로 물이 쏠려 지구가 '통통해지는' 변화 및 발레리나의 회전 비유를 통한 자전 감속 원리 설명[cite: 1]</div>
+        </div>
+
+        <h3>3. 어휘 연쇄 및 인캡슐레이션 (Lexical Chain)</h3>
+        <ul>
+            <li><b>상황 변화:</b> Melting ice ➔ rising seas ➔ gravity forces water toward the equator[cite: 1]</li>
+            <li><b>지구 물리적 변화:</b> Shape of the Earth ➔ fatter around the middle ➔ slows the rotation[cite: 1]</li>
+            <li><b>결과 도출(Encapsulation):</b> Altering the duration of day ➔ slowdown of rotation ➔ <b>impact on the length of a day</b>[cite: 1]</li>
+        </ul>
+
+        <h3>4. 논리 구조도 (Logical Framework Tree)</h3>
+        <div class="framework-step">
+            <b>Step 1 (Trigger):</b> 빙하가 녹고 해수면이 상승하여 적도 지역으로 물이 이동함[cite: 1]
+        </div>
+        <div class="framework-step">
+            <b>Step 2 (Medium):</b> 지구의 형태가 적도 쪽으로 팽창하며 자전 속도가 느려짐 (발레리나 비유)[cite: 1]
+        </div>
+        <div class="framework-step">
+            <b>Step 3 (Encapsulation):</b> 이로 인해 하루의 길이에 변화가 발생함 → 최종 주제: <b>빙하 용해와 해수면 상승이 하루 길이에 미치는 영향</b>[cite: 1]
+        </div>
+    </div>
+</div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="pcard" id="p9">
+  <div class="pcard-hd">
+    <span class="pnum">9.</span>
+    <span class="pdir">다음 글의 주제로 가장 적절한 것은?</span>
+    <span class="psrc">2021년 3월 · 서울교육청 23</span>
+  </div>
+  <div class="pcard-bd">
+    <div class="blank-passage">When two people are involved in an honest and open conversation, there is a back and forth flow of information. It is a smooth exchange. Since each one is drawing on their past personal experiences, the pace of the exchange is as fast as memory. When one person lies, their responses will come more slowly because the brain needs more time to process the details of a new invention than to recall stored facts. As they say, "Timing is everything." You will notice the time lag when you are having a conversation with someone who is making things up as they go. Don't forget that the other person may be reading your body language as well, and if you seem to be disbelieving their story, they will have to pause to process that information, too.</div>
+    <p class="footnote">*lag: 지연</p>
+    <div class="choices-text">
+      <div class="choice-txt ch" data-q="9" data-c="①" onclick="pick(9,'①')">① delayed responses as a sign of lying</div>
+      <div class="choice-txt ch" data-q="9" data-c="②" onclick="pick(9,'②')">② ways listeners encourage the speaker</div>
+      <div class="choice-txt ch" data-q="9" data-c="③" onclick="pick(9,'③')">③ difficulties in finding useful information</div>
+      <div class="choice-txt ch" data-q="9" data-c="④" onclick="pick(9,'④')">④ necessity of white lies in social settings</div>
+      <div class="choice-txt ch" data-q="9" data-c="⑤" onclick="pick(9,'⑤')">⑤ shared experiences as conversation topics</div>
+      <button class="btn-chk" id="ck9" onclick="check(9)">정답 확인</button>
+    </div>
+    <div class="status" id="st9"></div>
+  </div>
+  <div class="acc-trg" id="at9" onclick="toggleAcc(9)">
+    <div class="acc-arr">▾</div>
+    <span class="acc-lbl">해 설</span>
+    <span class="acc-ans">①</span>
+    <span class="acc-hint">클릭하여 해설 열기</span>
+  </div>
+  <div class="acc-panel" id="ap9">
+    <div class="acc-inner">
+      <div class="comm-wrapper">
+<h2>🔍 4대 축 심층 분석 리포트</h2>
+        
+        <h3>1. 담화 표지 및 논리적 전개 (Metadiscourse)</h3>
+        <p>글은 <b>"When two people..."</b>으로 솔직한 대화의 특징을 먼저 설명한 뒤, <b>"When one person lies..."</b>를 기점으로 대조되는 반응(지연)을 제시하며 논리를 전개합니다[cite: 1]. <b>"As they say,"</b>와 <b>"Don't forget that..."</b> 같은 표현을 통해 거짓말을 할 때 발생하는 시간 지연의 원리를 강조합니다[cite: 1].</p>
+
+        <h3>2. 개념 층위 분석 (Concept Hierarchy)</h3>
+        <div class="analysis-grid">
+            <div class="box"><b>거시(Macro):</b> 진실한 대화와 거짓말하는 대화 사이에는 정보 처리 방식의 차이로 인한 '속도'의 차이가 존재함[cite: 1]</div>
+            <div class="box"><b>미시(Micro):</b> 기억된 사실을 회상하는 속도 vs 새로운 정보를 지어내고 상대의 반응을 살피는 데 필요한 인지적 처리 시간[cite: 1]</div>
+        </div>
+
+        <h3>3. 어휘 연쇄 및 인캡슐레이션 (Lexical Chain)</h3>
+        <ul>
+            <li><b>정상 대화:</b> Back and forth flow ➔ smooth exchange ➔ fast as memory[cite: 1]</li>
+            <li><b>거짓말 대화:</b> Responses more slowly ➔ process details ➔ making things up[cite: 1]</li>
+            <li><b>핵심 지표(Encapsulation):</b> Time lag ➔ pause ➔ <b>Delayed responses as a sign of lying</b>[cite: 1]</li>
+        </ul>
+
+        <h3>4. 논리 구조도 (Logical Framework Tree)</h3>
+        <div class="framework-step">
+            <b>Step 1 (Trigger):</b> 솔직한 대화는 기억을 인출하므로 정보 교환이 매끄럽고 빠름[cite: 1]
+        </div>
+        <div class="framework-step">
+            <b>Step 2 (Medium):</b> 거짓말을 할 때는 새로운 내용을 지어내고 상대의 불신을 처리해야 하므로 인지적 과부하가 발생함[cite: 1]
+        </div>
+        <div class="framework-step">
+            <b>Step 3 (Encapsulation):</b> 이로 인해 반응 속도가 지연됨 → 최종 주제: <b>거짓말의 징후로서의 반응 지연</b>[cite: 1]
+        </div>
+    </div>
+</div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="pcard" id="p10">
+  <div class="pcard-hd">
+    <span class="pnum">10.</span>
+    <span class="pdir">다음 글의 주제로 가장 적절한 것은?</span>
+    <span class="psrc">2021년 6월 · 부산교육청 23</span>
+  </div>
+  <div class="pcard-bd">
+    <div class="blank-passage">Curiosity makes us much more likely to view a tough problem as an interesting challenge to take on. A stressful meeting with our boss becomes an opportunity to learn. A nervous first date becomes an exciting night out with a new person. A colander becomes a hat. In general, curiosity motivates us to view stressful situations as challenges rather than threats, to talk about difficulties more openly, and to try new approaches to solving problems. In fact, curiosity is associated with a less defensive reaction to stress and, as a result, less aggression when we respond to irritation.</div>
+    <p class="footnote">*colander: (음식 재료의 물을 빼는 데 쓰는) 체</p>
+    <div class="choices-text">
+      <div class="choice-txt ch" data-q="10" data-c="①" onclick="pick(10,'①')">① importance of defensive reactions in a tough situation</div>
+      <div class="choice-txt ch" data-q="10" data-c="②" onclick="pick(10,'②')">② curiosity as the hidden force of positive reframes</div>
+      <div class="choice-txt ch" data-q="10" data-c="③" onclick="pick(10,'③')">③ difficulties of coping with stress at work</div>
+      <div class="choice-txt ch" data-q="10" data-c="④" onclick="pick(10,'④')">④ potential threats caused by curiosity</div>
+      <div class="choice-txt ch" data-q="10" data-c="⑤" onclick="pick(10,'⑤')">⑤ factors that reduce human curiosity</div>
+      <button class="btn-chk" id="ck10" onclick="check(10)">정답 확인</button>
+    </div>
+    <div class="status" id="st10"></div>
+  </div>
+  <div class="acc-trg" id="at10" onclick="toggleAcc(10)">
+    <div class="acc-arr">▾</div>
+    <span class="acc-lbl">해 설</span>
+    <span class="acc-ans">①</span>
+    <span class="acc-hint">클릭하여 해설 열기</span>
+  </div>
+  <div class="acc-panel" id="ap10">
+    <div class="acc-inner">
+      <div class="comm-wrapper">
+<h2>🔍 4대 축 심층 분석 리포트</h2>
+        
+        <h3>1. 담화 표지 및 논리적 전개 (Metadiscourse)</h3>
+        <p>글은 <b>"According to"</b>를 통해 채식의 건강상 이점을 제시한 뒤, <b>"But"</b>을 사용하여 건강 외의 다른 이유들로 논지를 확장합니다[cite: 1]. <b>"Some..."</b>, <b>"When..."</b>, <b>"Others..."</b> 등의 구조를 통해 채식을 선택하는 다양한 동기를 순차적으로 나열합니다[cite: 1].</p>
+
+        <h3>2. 개념 층위 분석 (Concept Hierarchy)</h3>
+        <div class="analysis-grid">
+            <div class="box"><b>거시(Macro):</b> 젊은 층에서 채식이 주류 문화로 자리 잡고 있으며, 그 배경에는 다양한 동기가 존재함[cite: 1]</div>
+            <div class="box"><b>미시(Micro):</b> 건강상의 이점, 동물 권리 보호, 환경 보호라는 세 가지 구체적 이유[cite: 1]</div>
+        </div>
+
+        <h3>3. 어휘 연쇄 및 인캡슐레이션 (Lexical Chain)</h3>
+        <ul>
+            <li><b>주류화:</b> Vegetarian eating ➔ mainstream ➔ young adults[cite: 1]</li>
+            <li><b>동기 분류:</b> Health concerns (prevention/treatment) ➔ Animal rights (protest confinement) ➔ Environment (sustainability/pollution)[cite: 1]</li>
+            <li><b>핵심 통합(Encapsulation):</b> Reasons for changing diets ➔ <b>Reasons why young people go for vegetarian diets</b>[cite: 1]</li>
+        </ul>
+
+        <h3>4. 논리 구조도 (Logical Framework Tree)</h3>
+        <div class="framework-step">
+            <b>Step 1 (Trigger):</b> 많은 젊은이가 육류 섭취를 중단하고 채식을 선택하고 있음[cite: 1]
+        </div>
+        <div class="framework-step">
+            <b>Step 2 (Medium):</b> 그 이유는 건강상의 혜택뿐만 아니라 동물권 보호와 환경 지원이라는 다각적인 측면이 있음[cite: 1]
+        </div>
+        <div class="framework-step">
+            <b>Step 3 (Encapsulation):</b> 채식 선택의 다양한 동기를 설명함 → 최종 주제: <b>젊은 층이 채식을 선택하는 이유들</b>[cite: 1]
+        </div>
+    </div>
+</div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="pcard" id="p11">
+  <div class="pcard-hd">
+    <span class="pnum">11.</span>
+    <span class="pdir">다음 글의 주제로 가장 적절한 것은?</span>
+    <span class="psrc">2021년 9월 · 인천교육청 23</span>
+  </div>
+  <div class="pcard-bd">
+    <div class="blank-passage">Vegetarian eating is moving into the mainstream as more and more young adults say no to meat, poultry, and fish. According to the American Dietetic Association, "approximately planned vegetarian diets are healthful, are nutritionally adequate, and provide health benefits in the prevention and treatment of certain diseases." But health concerns are not the only reason that young adults give for changing their diets. Some make the choice out of concern for animal rights. When faced with the statistics that show the majority of animals raised as food live in confinement, many teens give up meat to protest those conditions. Others turn to vegetarianism to support the environment. Meat production uses vast amounts of water, land, grain, and energy and creates problems with animal waste and resulting pollution.</div>
+    <p class="footnote">*poultry: 가금류(닭·오리·거위 등)</p>
+    <div class="choices-text">
+      <div class="choice-txt ch" data-q="11" data-c="①" onclick="pick(11,'①')">① reasons why young people go for vegetarian diets</div>
+      <div class="choice-txt ch" data-q="11" data-c="②" onclick="pick(11,'②')">② ways to build healthy eating habits for teenagers</div>
+      <div class="choice-txt ch" data-q="11" data-c="③" onclick="pick(11,'③')">③ vegetables that help lower your risk of cancer</div>
+      <div class="choice-txt ch" data-q="11" data-c="④" onclick="pick(11,'④')">④ importance of maintaining a balanced diet</div>
+      <div class="choice-txt ch" data-q="11" data-c="⑤" onclick="pick(11,'⑤')">⑤ disadvantages of plant-based diets</div>
+      <button class="btn-chk" id="ck11" onclick="check(11)">정답 확인</button>
+    </div>
+    <div class="status" id="st11"></div>
+  </div>
+  <div class="acc-trg" id="at11" onclick="toggleAcc(11)">
+    <div class="acc-arr">▾</div>
+    <span class="acc-lbl">해 설</span>
+    <span class="acc-ans">①</span>
+    <span class="acc-hint">클릭하여 해설 열기</span>
+  </div>
+  <div class="acc-panel" id="ap11">
+    <div class="acc-inner">
+      <div class="comm-wrapper">
+<h2>🔍 4대 축 심층 분석 리포트</h2>
+        
+        <h3>1. 담화 표지 및 논리적 전개 (Metadiscourse)</h3>
+        <p>글은 <b>"We used to think... but..."</b>의 대조 구문을 통해 과거의 통념을 깨고 새로운 과학적 사실을 제시합니다. <b>"What this means is..."</b>를 통해 핵심 원리를 요약하고, 도널드 헵의 명언을 인용하여 주장을 뒷받침합니다.</p>
+
+        <h3>2. 개념 층위 분석 (Concept Hierarchy)</h3>
+        <div class="analysis-grid">
+            <div class="box"><b>거시(Macro):</b> 인간의 뇌는 가소성을 지니며, 의도적인 반복 연습을 통해 행복을 위한 습관적 회로를 형성할 수 있음</div>
+            <div class="box"><b>미시(Micro):</b> 신경세포의 활성화가 반복되어 신경 경로(neural pathways)로 고착화되는 '가소성'의 원리</div>
+        </div>
+
+        <h3>3. 어휘 연쇄 및 인캡슐레이션 (Lexical Chain)</h3>
+        <ul>
+            <li><b>가소성 원리:</b> Brain circuits grow stronger ➔ Regular practice ➔ Lasting changes</li>
+            <li><b>핵심 법칙:</b> Neurons fire together ➔ Wire together ➔ Neural pathways</li>
+            <li><b>통합 결과(Encapsulation):</b> Intentional creation ➔ Habits for well-being ➔ <b>Possibility of forming brain habits for well-being</b></li>
+        </ul>
+
+        <h3>4. 논리 구조도 (Logical Framework Tree)</h3>
+        
+        <div class="framework-step">
+            <b>Step 1 (Trigger):</b> 뇌는 고정된 것이 아니라, 연습을 통해 특정 회로가 강화되는 가소성을 지님
+        </div>
+        <div class="framework-step">
+            <b>Step 2 (Medium):</b> 반복적인 생각과 활동은 신경세포를 동시에 활성화하고, 이는 신경 경로를 형성함
+        </div>
+        <div class="framework-step">
+            <b>Step 3 (Encapsulation):</b> 우리는 의도적으로 행복한 뇌 습관을 만들 수 있음 → 최종 주제: <b>행복한 뇌 습관 형성의 가능성</b>
+        </div>
+    </div>
+</div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="pcard" id="p12">
+  <div class="pcard-hd">
+    <span class="pnum">12.</span>
+    <span class="pdir">다음 글의 주제로 가장 적절한 것은?</span>
+    <span class="psrc">2021년 11월 · 경기도교육청 23</span>
+  </div>
+  <div class="pcard-bd">
+    <div class="blank-passage">We used to think that the brain never changed, but according to the neuroscientist Richard Davidson, we now know that this is not true — specific brain circuits grow stronger through regular practice. He explains, "Well-being is fundamentally no different than learning to play the cello. If one practices the skills of well-being, one will get better at it." What this means is that you can actually train your brain to become more grateful, relaxed, or confident, by repeating experiences that evoke gratitude, relaxation, or confidence. Your brain is shaped by the thoughts you repeat. The more neurons fire as they are activated by repeated thoughts and activities, the faster they develop into neural pathways, which cause lasting changes in the brain. Or in the words of Donald Hebb, "Neurons that fire together wire together." This is such an encouraging premise: bottom line — we can intentionally create the habits for the brain to be happier.</div>
+    <p class="footnote">*evoke: (감정을) 불러일으키다  **premise: 전제</p>
+    <div class="choices-text">
+      <div class="choice-txt ch" data-q="12" data-c="①" onclick="pick(12,'①')">① possibility of forming brain habits for well-being</div>
+      <div class="choice-txt ch" data-q="12" data-c="②" onclick="pick(12,'②')">② role of brain circuits in improving body movements</div>
+      <div class="choice-txt ch" data-q="12" data-c="③" onclick="pick(12,'③')">③ importance of practice in playing musical instruments</div>
+      <div class="choice-txt ch" data-q="12" data-c="④" onclick="pick(12,'④')">④ effect of taking a break on enhancing memory capacity</div>
+      <div class="choice-txt ch" data-q="12" data-c="⑤" onclick="pick(12,'⑤')">⑤ difficulty of discovering how neurons in the brain work</div>
+      <button class="btn-chk" id="ck12" onclick="check(12)">정답 확인</button>
+    </div>
+    <div class="status" id="st12"></div>
+  </div>
+  <div class="acc-trg" id="at12" onclick="toggleAcc(12)">
+    <div class="acc-arr">▾</div>
+    <span class="acc-lbl">해 설</span>
+    <span class="acc-ans">②</span>
+    <span class="acc-hint">클릭하여 해설 열기</span>
+  </div>
+  <div class="acc-panel" id="ap12">
+    <div class="acc-inner">
+      <div class="comm-wrapper">
+<h2>🔍 4대 축 심층 분석 리포트</h2>
+        
+        <h3>1. 담화 표지 및 논리적 전개 (Metadiscourse)</h3>
+        <p>글쓴이는 <b>"Although..."</b>를 사용하여 개인적 선호의 차이에도 불구하고 '촉각'이라는 보편적 중요성을 제시하며 논의를 시작합니다[cite: 1]. <b>"In fact"</b>와 <b>"When considering..."</b>을 활용해 소비자가 실제 구매 과정에서 제품을 만져보고 느끼는 경험을 중시한다는 구체적인 근거를 제시합니다[cite: 1].</p>
+
+        <h3>2. 개념 층위 분석 (Concept Hierarchy)</h3>
+        <div class="analysis-grid">
+            <div class="box"><b>거시(Macro):</b> 촉각(touch/feel)은 소비자가 제품을 평가하고 선택하는 데 있어 매우 중요한 요소임[cite: 1]</div>
+            <div class="box"><b>미시(Micro):</b> 스킨 크림의 진정 효과나 의류·카페트 등을 직접 만져보고 구매하려는 소비자의 실제 행동 양상[cite: 1]</div>
+        </div>
+
+        <h3>3. 어휘 연쇄 및 인캡슐레이션 (Lexical Chain)</h3>
+        <ul>
+            <li><b>촉각의 정의:</b> Touch ➔ Feel ➔ Contact with our skin[cite: 1]</li>
+            <li><b>소비자 선호:</b> Soothing effect ➔ High need for touch ➔ Like goods they can touch[cite: 1]</li>
+            <li><b>핵심 통합(Encapsulation):</b> Material properties ➔ Touch in stores ➔ <b>Touch as an important factor for consumers</b>[cite: 1]</li>
+        </ul>
+
+        <h3>4. 논리 구조도 (Logical Framework Tree)</h3>
+        <div class="framework-step">
+            <b>Step 1 (Trigger):</b> 개인차는 존재하지만, 많은 제품에서 '촉각'은 구매 결정의 핵심적인 측면임[cite: 1]
+        </div>
+        <div class="framework-step">
+            <b>Step 2 (Medium):</b> 소비자들은 제품의 질감과 피부에 닿는 느낌(소딩 효과 등)을 직접 확인하길 원함[cite: 1]
+        </div>
+        <div class="framework-step">
+            <b>Step 3 (Encapsulation):</b> 온라인 정보보다 매장에서 직접 만져보는 경험을 선호함 → 최종 주제: <b>소비자에게 중요한 요소로서의 촉각</b>[cite: 1]
+        </div>
+    </div>
+</div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="pcard" id="p13">
+  <div class="pcard-hd">
+    <span class="pnum">13.</span>
+    <span class="pdir">다음 글의 주제로 가장 적절한 것은?</span>
+    <span class="psrc">2020년 3월 · 서울교육청 23</span>
+  </div>
+  <div class="pcard-bd">
+    <div class="blank-passage">Although individual preferences vary, touch (both what we touch with our fingers and the way things feel as they come in contact with our skin) is an important aspect of many products. Consumers like some products because of their feel. Some consumers buy skin creams and baby products for their soothing effect on the skin. In fact, consumers who have a high need for touch tend to like products that provide this opportunity. When considering products with material properties, such as clothing or carpeting, consumers like goods they can touch in stores more than products they only see and read about online or in catalogs.</div>
+    <p class="footnote">*property: 속성</p>
+    <div class="choices-text">
+      <div class="choice-txt ch" data-q="13" data-c="①" onclick="pick(13,'①')">① benefits of using online shopping malls</div>
+      <div class="choice-txt ch" data-q="13" data-c="②" onclick="pick(13,'②')">② touch as an important factor for consumers</div>
+      <div class="choice-txt ch" data-q="13" data-c="③" onclick="pick(13,'③')">③ importance of sharing information among consumers</div>
+      <div class="choice-txt ch" data-q="13" data-c="④" onclick="pick(13,'④')">④ necessity of getting feedback from consumers</div>
+      <div class="choice-txt ch" data-q="13" data-c="⑤" onclick="pick(13,'⑤')">⑤ popularity of products in the latest styles</div>
+      <button class="btn-chk" id="ck13" onclick="check(13)">정답 확인</button>
+    </div>
+    <div class="status" id="st13"></div>
+  </div>
+  <div class="acc-trg" id="at13" onclick="toggleAcc(13)">
+    <div class="acc-arr">▾</div>
+    <span class="acc-lbl">해 설</span>
+    <span class="acc-ans">③</span>
+    <span class="acc-hint">클릭하여 해설 열기</span>
+  </div>
+  <div class="acc-panel" id="ap13">
+    <div class="acc-inner">
+      <div class="comm-wrapper">
+<h2>🔍 4대 축 심층 분석 리포트</h2>
+        
+        <h3>1. 담화 표지 및 논리적 전개 (Metadiscourse)</h3>
+        <p>글쓴이는 <b>"Like anything else"</b>라는 비유를 통해 자비심(compassion) 역시 노력이 필요한 습관임을 밝힙니다[cite: 1]. 또한 <b>"Sometimes"</b>와 <b>"At other times"</b>의 대비를 통해 작은 도움과 큰 희생이 요구되는 상황을 구분하며, <b>"If we practice..."</b>라는 결론을 통해 실천의 중요성을 강조합니다[cite: 1].</p>
+
+        <h3>2. 개념 층위 분석 (Concept Hierarchy)</h3>
+        <div class="analysis-grid">
+            <div class="box"><b>거시(Macro):</b> 자비심은 타고나는 것이 아니라 지속적인 연습을 통해 길러지는 습관임[cite: 1]</div>
+            <div class="box"><b>미시(Micro):</b> 일상 속의 작은 친절과 진정한 희생이 필요한 순간을 연결하는 연습 과정[cite: 1]</div>
+        </div>
+
+        <h3>3. 어휘 연쇄 및 인캡슐레이션 (Lexical Chain)</h3>
+        <ul>
+            <li><b>연습의 필요성:</b> Compassion takes practice ➔ Work at getting into the habit[cite: 1]</li>
+            <li><b>도움의 양상:</b> Simple matter (kind word, volunteering) ➔ Real sacrifice (sharing when hungry)[cite: 1]</li>
+            <li><b>핵심 통합(Encapsulation):</b> Small opportunities ➔ In shape to act ➔ <b>Importance of practice to help others</b>[cite: 1]</li>
+        </ul>
+
+        <h3>4. 논리 구조도 (Logical Framework Tree)</h3>
+        <div class="framework-step">
+            <b>Step 1 (Trigger):</b> 자비심은 습관이기에 노력을 통한 연습이 필요함[cite: 1]
+        </div>
+        <div class="framework-step">
+            <b>Step 2 (Medium):</b> 일상적인 작은 도움을 실천하는 것은 더 큰 희생이 필요한 상황에 대비하는 훈련임[cite: 1]
+        </div>
+        <div class="framework-step">
+            <b>Step 3 (Encapsulation):</b> 지속적인 연습은 타인을 돕기 위한 필수적인 과정임 → 최종 주제: <b>타인을 돕기 위한 연습의 중요성</b>[cite: 1]
+        </div>
+    </div>
+</div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="pcard" id="p14">
+  <div class="pcard-hd">
+    <span class="pnum">14.</span>
+    <span class="pdir">다음 글의 주제로 가장 적절한 것은?</span>
+    <span class="psrc">2020년 6월 · 부산교육청 23</span>
+  </div>
+  <div class="pcard-bd">
+    <div class="blank-passage">Like anything else involving effort, compassion takes practice. We have to work at getting into the habit of standing with others in their time of need. Sometimes offering help is a simple matter that does not take us far out of our way — remembering to speak a kind word to someone who is down, or spending an occasional Saturday morning volunteering for a favorite cause. At other times, helping involves some real sacrifice. "A bone to the dog is not charity," Jack London observed. "Charity is the bone shared with the dog, when you are just as hungry as the dog." If we practice taking the many small opportunities to help others, we'll be in shape to act when those times requiring real, hard sacrifice come along.</div>
+    
+    <div class="choices-text">
+      <div class="choice-txt ch" data-q="14" data-c="①" onclick="pick(14,'①')">① benefits of living with others in harmony</div>
+      <div class="choice-txt ch" data-q="14" data-c="②" onclick="pick(14,'②')">② effects of practice in speaking kindly</div>
+      <div class="choice-txt ch" data-q="14" data-c="③" onclick="pick(14,'③')">③ importance of practice to help others</div>
+      <div class="choice-txt ch" data-q="14" data-c="④" onclick="pick(14,'④')">④ means for helping people in trouble</div>
+      <div class="choice-txt ch" data-q="14" data-c="⑤" onclick="pick(14,'⑤')">⑤ difficulties with forming new habits</div>
+      <button class="btn-chk" id="ck14" onclick="check(14)">정답 확인</button>
+    </div>
+    <div class="status" id="st14"></div>
+  </div>
+  <div class="acc-trg" id="at14" onclick="toggleAcc(14)">
+    <div class="acc-arr">▾</div>
+    <span class="acc-lbl">해 설</span>
+    <span class="acc-ans">②</span>
+    <span class="acc-hint">클릭하여 해설 열기</span>
+  </div>
+  <div class="acc-panel" id="ap14">
+    <div class="acc-inner">
+      <div class="comm-wrapper">
+<h2>🔍 4대 축 심층 분석 리포트</h2>
+        
+        <h3>1. 담화 표지 및 논리적 전개 (Metadiscourse)</h3>
+        <p>글은 <b>"Animals as well as humans..."</b>를 통해 동물과 인간의 놀이 공통점을 언급한 뒤, <b>"In children, too,"</b>를 사용하여 놀이가 아동 발달 과정에서 가지는 중요한 기능으로 논지를 전환합니다[cite: 1]. <b>"For example,"</b>을 통해 구체적인 학습 내용을 나열하며 주제를 뒷받침합니다[cite: 1].</p>
+
+        <h3>2. 개념 층위 분석 (Concept Hierarchy)</h3>
+        <div class="analysis-grid">
+            <div class="box"><b>거시(Macro):</b> 놀이는 아동의 발달 과정에서 세상을 배우고 성인기를 준비하는 필수적인 훈련 과정임[cite: 1]</div>
+            <div class="box"><b>미시(Micro):</b> 걷기, 달리기 등의 신체 능력 발달 및 경쟁, 협력, 의사 결정과 같은 사회적 행동 학습[cite: 1]</div>
+        </div>
+
+        <h3>3. 어휘 연쇄 및 인캡슐레이션 (Lexical Chain)</h3>
+        <ul>
+            <li><b>발달의 기반:</b> Learning and practicing skills ➔ Important functions during development[cite: 1]</li>
+            <li><b>신체 및 사회적 학습:</b> Training ground (physical abilities) ➔ Social behaviors (values and traits)[cite: 1]</li>
+            <li><b>핵심 통합(Encapsulation):</b> World and their place ➔ Learn to compete and cooperate ➔ <b>Roles of play in children’s development</b>[cite: 1]</li>
+        </ul>
+
+        <h3>4. 논리 구조도 (Logical Framework Tree)</h3>
+        <div class="framework-step">
+            <b>Step 1 (Trigger):</b> 놀이는 생존을 위한 필수적인 기술과 행동을 학습하는 훈련장임[cite: 1]
+        </div>
+        <div class="framework-step">
+            <b>Step 2 (Medium):</b> 아동에게 놀이는 신체 능력 발달과 사회적 가치 및 성격 형성을 위한 훈련을 제공함[cite: 1]
+        </div>
+        <div class="framework-step">
+            <b>Step 3 (Encapsulation):</b> 아동은 놀이를 통해 세상을 배우고 성인기를 준비함 → 최종 주제: <b>아동 발달에 있어 놀이의 역할</b>[cite: 1]
+        </div>
+    </div>
+</div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="pcard" id="p15">
+  <div class="pcard-hd">
+    <span class="pnum">15.</span>
+    <span class="pdir">다음 글의 주제로 가장 적절한 것은?</span>
+    <span class="psrc">2020년 9월 · 인천교육청 23</span>
+  </div>
+  <div class="pcard-bd">
+    <div class="blank-passage">Animals as well as humans engage in play activities. In animals, play has long been seen as a way of learning and practicing skills and behaviors that are necessary for future survival. In children, too, play has important functions during development. From its earliest beginnings in infancy, play is a way in which children learn about the world and their place in it. Children's play serves as a training ground for developing physical abilities — skills like walking, running, and jumping that are necessary for everyday living. Play also allows children to try out and learn social behaviors and to acquire values and personality traits that will be important in adulthood. For example, they learn how to compete and cooperate with others, how to lead and follow, how to make decisions, and so on.</div>
+    
+    <div class="choices-text">
+      <div class="choice-txt ch" data-q="15" data-c="①" onclick="pick(15,'①')">① necessity of trying out creative ideas</div>
+      <div class="choice-txt ch" data-q="15" data-c="②" onclick="pick(15,'②')">② roles of play in children's development</div>
+      <div class="choice-txt ch" data-q="15" data-c="③" onclick="pick(15,'③')">③ contrasts between human and animal play</div>
+      <div class="choice-txt ch" data-q="15" data-c="④" onclick="pick(15,'④')">④ effects of children's physical abilities on play</div>
+      <div class="choice-txt ch" data-q="15" data-c="⑤" onclick="pick(15,'⑤')">⑤ children's needs at various developmental stages</div>
+      <button class="btn-chk" id="ck15" onclick="check(15)">정답 확인</button>
+    </div>
+    <div class="status" id="st15"></div>
+  </div>
+  <div class="acc-trg" id="at15" onclick="toggleAcc(15)">
+    <div class="acc-arr">▾</div>
+    <span class="acc-lbl">해 설</span>
+    <span class="acc-ans">①</span>
+    <span class="acc-hint">클릭하여 해설 열기</span>
+  </div>
+  <div class="acc-panel" id="ap15">
+    <div class="acc-inner">
+      <div class="comm-wrapper">
+<h2>🔍 4대 축 심층 분석 리포트</h2>
+        
+        <h3>1. 담화 표지 및 논리적 전개 (Metadiscourse)</h3>
+        <p>글은 재생 에너지 사용이 환경 보호 목표와 전력 공급 확보를 조화시키는 수단으로 권장된다는 점을 언급하며 시작합니다[cite: 1]. 그러나 <b>"But"</b>이라는 역접 표지를 통해 재생 에너지 역시 고려해야 할 자체적인 부정적 결과(consequences)가 있음을 명시합니다[cite: 1].</p>
+
+        <h3>2. 개념 층위 분석 (Concept Hierarchy)</h3>
+        <div class="analysis-grid">
+            <div class="box"><b>거시(Macro):</b> 재생 에너지는 친환경적인 대안으로 권장되지만, 실제로는 각 에너지원마다 환경에 미치는 부정적인 부작용이 존재함[cite: 1]</div>
+            <div class="box"><b>미시(Micro):</b> 수력 발전의 수생태계 영향 및 온실가스 배출, 풍력·태양광·바이오매스의 시각 공해 및 토지 점유, 조류 피해[cite: 1]</div>
+        </div>
+
+        <h3>3. 어휘 연쇄 및 인캡슐레이션 (Lexical Chain)</h3>
+        <ul>
+            <li><b>재생 에너지원:</b> Renewable sources ➔ Hydropower, solar, wind, geothermal, biomass[cite: 1]</li>
+            <li><b>환경적 영향:</b> Impact on environment ➔ Aquatic ecosystems ➔ Greenhouse emissions ➔ Visual pollution ➔ Land occupation[cite: 1]</li>
+            <li><b>핵심 통합(Encapsulation):</b> Consequences ➔ Negative environmental impacts ➔ <b>Environmental side effects of using renewable energy sources</b>[cite: 1]</li>
+        </ul>
+
+        <h3>4. 논리 구조도 (Logical Framework Tree)</h3>
+        <div class="framework-step">
+            <b>Step 1 (Trigger):</b> 재생 에너지 사용은 환경 보호를 위해 권장되는 추세임[cite: 1]
+        </div>
+        <div class="framework-step">
+            <b>Step 2 (Medium):</b> 그러나 모든 재생 에너지원은 각각 수생태계 파괴, 온실가스 배출, 시각/토지 오염 등 부정적 영향을 유발함[cite: 1]
+        </div>
+        <div class="framework-step">
+            <b>Step 3 (Encapsulation):</b> 이러한 부작용들에 대한 고려가 필요함 → 최종 주제: <b>재생 에너지 사용의 환경적 부작용</b>[cite: 1]
+        </div>
+    </div>
+</div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="pcard" id="p16">
+  <div class="pcard-hd">
+    <span class="pnum">16.</span>
+    <span class="pdir">다음 글의 주제로 가장 적절한 것은?</span>
+    <span class="psrc">2020년 11월 · 경기도교육청 23</span>
+  </div>
+  <div class="pcard-bd">
+    <div class="blank-passage">The use of renewable sources of energy to produce electricity has increasingly been encouraged as a way to harmonize the need to secure electricity supply with environmental protection objectives. But the use of renewable sources also comes with its own consequences, which require consideration. Renewable sources of energy include a variety of sources such as hydropower and ocean-based technologies. Additionally, solar, wind, geothermal and biomass renewable sources also have their own impact on the environment. Hydropower dams, for example, have an impact on aquatic ecosystems and, more recently, have been identified as significant sources of greenhouse emissions. Wind, solar, and biomass also cause negative environmental impacts, such as visual pollution, intensive land occupation and negative effects on bird populations.</div>
+    <p class="footnote">*geothermal: 지열의  **biomass: 에너지로 사용 가능한 생물체</p>
+    <div class="choices-text">
+      <div class="choice-txt ch" data-q="16" data-c="①" onclick="pick(16,'①')">① environmental side effects of using renewable energy sources</div>
+      <div class="choice-txt ch" data-q="16" data-c="②" onclick="pick(16,'②')">② practical methods to meet increasing demand for electricity</div>
+      <div class="choice-txt ch" data-q="16" data-c="③" onclick="pick(16,'③')">③ negative impacts of the use of traditional energy sources</div>
+      <div class="choice-txt ch" data-q="16" data-c="④" onclick="pick(16,'④')">④ numerous ways to obtain renewable sources of energy</div>
+      <div class="choice-txt ch" data-q="16" data-c="⑤" onclick="pick(16,'⑤')">⑤ effective procedures to reduce greenhouse emissions</div>
+      <button class="btn-chk" id="ck16" onclick="check(16)">정답 확인</button>
+    </div>
+    <div class="status" id="st16"></div>
+  </div>
+  <div class="acc-trg" id="at16" onclick="toggleAcc(16)">
+    <div class="acc-arr">▾</div>
+    <span class="acc-lbl">해 설</span>
+    <span class="acc-ans">①</span>
+    <span class="acc-hint">클릭하여 해설 열기</span>
+  </div>
+  <div class="acc-panel" id="ap16">
+    <div class="acc-inner">
+      <div class="comm-wrapper">
+<h2>🔍 4대 축 심층 분석 리포트</h2>
+        
+        <h3>1. 담화 표지 및 논리적 전개 (Metadiscourse)</h3>
+        <p>글은 <b>"While..."</b>을 통해 모래가 형성되는 다양한 기원을 언급하며 시작하지만, <b>"most sand"</b>라는 핵심 소재를 강조하며 논지를 명확히 합니다[cite: 1]. <b>"But"</b>과 <b>"If..."</b>라는 연결어를 사용하여 산에서 해변까지 이동하는 긴 과정의 인과관계를 설명합니다[cite: 1].</p>
+
+        <h3>2. 개념 층위 분석 (Concept Hierarchy)</h3>
+        <div class="analysis-grid">
+            <div class="box"><b>거시(Macro):</b> 해변 모래의 대부분은 산에서 기원한 암석 파편들이 오랜 세월에 걸쳐 이동하며 형성된 것임[cite: 1]</div>
+            <div class="box"><b>미시(Micro):</b> 빙하, 바람, 강물에 의한 운반 과정과 그 과정에서 암석 파편이 마모되어 모래가 되는 물리적 변화[cite: 1]</div>
+        </div>
+
+        <h3>3. 어휘 연쇄 및 인캡슐레이션 (Lexical Chain)</h3>
+        <ul>
+            <li><b>이동 과정:</b> Tiny bits of rock ➔ Mountains ➔ Glaciers, wind, flowing water[cite: 1]</li>
+            <li><b>변화:</b> Smaller and smaller ➔ River lift ➔ Coast[cite: 1]</li>
+            <li><b>결과 도출(Encapsulation):</b> Spend years on the beach ➔ Sand ➔ <b>How most sand on the beach is formed</b>[cite: 1]</li>
+        </ul>
+
+        <h3>4. 논리 구조도 (Logical Framework Tree)</h3>
+        <div class="framework-step">
+            <b>Step 1 (Trigger):</b> 대부분의 모래는 산에서 기원한 작은 암석 파편들임[cite: 1]
+        </div>
+        <div class="framework-step">
+            <b>Step 2 (Medium):</b> 빙하, 바람, 강물이 이 파편들을 수천 년 동안 해안으로 이동시킴[cite: 1]
+        </div>
+        <div class="framework-step">
+            <b>Step 3 (Encapsulation):</b> 이동 과정에서 작아진 파편들이 최종적으로 해변 모래가 됨 → 최종 주제: <b>해변 모래의 형성 과정</b>[cite: 1]
+        </div>
+    </div>
+</div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="pcard" id="p17">
+  <div class="pcard-hd">
+    <span class="pnum">17.</span>
+    <span class="pdir">다음 글의 주제로 가장 적절한 것은?</span>
+    <span class="psrc">2019년 3월 · 서울교육청 20</span>
+  </div>
+  <div class="pcard-bd">
+    <div class="blank-passage">While some sand is formed in oceans from things like shells and rocks, most sand is made up of tiny bits of rock that came all the way from the mountains! But that trip can take thousands of years. Glaciers, wind, and flowing water help move the rocky bits along, with the tiny travelers getting smaller and smaller as they go. If they're lucky, a river may give them a lift all the way to the coast. There, they can spend the rest of their years on the beach as sand.</div>
+    
+    <div class="choices-text">
+      <div class="choice-txt ch" data-q="17" data-c="①" onclick="pick(17,'①')">① things to cause the travel of water</div>
+      <div class="choice-txt ch" data-q="17" data-c="②" onclick="pick(17,'②')">② factors to determine the size of sand</div>
+      <div class="choice-txt ch" data-q="17" data-c="③" onclick="pick(17,'③')">③ how most sand on the beach is formed</div>
+      <div class="choice-txt ch" data-q="17" data-c="④" onclick="pick(17,'④')">④ many uses of sand in various industries</div>
+      <div class="choice-txt ch" data-q="17" data-c="⑤" onclick="pick(17,'⑤')">⑤ why sand is disappearing from the beach</div>
+      <button class="btn-chk" id="ck17" onclick="check(17)">정답 확인</button>
+    </div>
+    <div class="status" id="st17"></div>
+  </div>
+  <div class="acc-trg" id="at17" onclick="toggleAcc(17)">
+    <div class="acc-arr">▾</div>
+    <span class="acc-lbl">해 설</span>
+    <span class="acc-ans">③</span>
+    <span class="acc-hint">클릭하여 해설 열기</span>
+  </div>
+  <div class="acc-panel" id="ap17">
+    <div class="acc-inner">
+      <div class="comm-wrapper">
+<h2>🔍 4대 축 심층 분석 리포트</h2>
+        
+        <h3>1. 담화 표지 및 논리적 전개 (Metadiscourse)</h3>
+        <p>글은 나무 그루터기의 나이테라는 일상적인 관찰에서 시작하여, 그것이 나무의 나이와 기후 환경을 알려준다는 과학적 사실로 논리를 전개합니다[cite: 1]. 또한 <b>"For example"</b>과 <b>"in particular"</b>를 사용하여 나이테의 폭이 기후 조건에 따라 어떻게 변하는지 구체적인 증거를 제시합니다[cite: 1].</p>
+
+        <h3>2. 개념 층위 분석 (Concept Hierarchy)</h3>
+        <div class="analysis-grid">
+            <div class="box"><b>거시(Macro):</b> 나무의 나이테는 과거의 국지적 기후 조건을 기록하는 자연적 데이터베이스 역할을 함[cite: 1]</div>
+            <div class="box"><b>미시(Micro):</b> 따뜻하고 습한 해에는 나이테가 넓어지고, 춥고 건조하거나 가뭄이 들면 좁아지거나 성장이 멈추는 생물학적 메커니즘[cite: 1]</div>
+        </div>
+
+        <h3>3. 어휘 연쇄 및 인캡슐레이션 (Lexical Chain)</h3>
+        <ul>
+            <li><b>기후 기록:</b> Sensitivity to local climate ➔ Rain and temperature ➔ Information about the past[cite: 1]</li>
+            <li><b>성장 변화:</b> Wider (warm, wet) ➔ Thinner (cold, dry) ➔ Stressful conditions (drought)[cite: 1]</li>
+            <li><b>핵심 통합(Encapsulation):</b> Offer clues ➔ Measurements recorded ➔ <b>Tree rings suggesting the past climate</b>[cite: 1]</li>
+        </ul>
+
+        <h3>4. 논리 구조도 (Logical Framework Tree)</h3>
+        <div class="framework-step">
+            <b>Step 1 (Trigger):</b> 나무는 나이테를 통해 생애 전반의 기후 정보를 저장함[cite: 1]
+        </div>
+        <div class="framework-step">
+            <b>Step 2 (Medium):</b> 기후 조건(강수량, 온도)에 따라 나이테의 폭이 변하는 현상이 나타남[cite: 1]
+        </div>
+        <div class="framework-step">
+            <b>Step 3 (Encapsulation):</b> 고대 나무를 통해 관측 기록 이전의 기후를 추정할 수 있음 → 최종 주제: <b>과거 기후를 암시하는 나이테</b>[cite: 1]
+        </div>
+    </div>
+</div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="pcard" id="p18">
+  <div class="pcard-hd">
+    <span class="pnum">18.</span>
+    <span class="pdir">다음 글의 주제로 가장 적절한 것은?</span>
+    <span class="psrc">2019년 6월 · 부산교육청 23</span>
+  </div>
+  <div class="pcard-bd">
+    <div class="blank-passage">If you've ever seen a tree stump, you probably noticed that the top of the stump had a series of rings. These rings can tell us how old the tree is, and what the weather was like during each year of the tree's life. Because trees are sensitive to local climate conditions, such as rain and temperature, they give scientists some information about that area's local climate in the past. For example, tree rings usually grow wider in warm, wet years and are thinner in years when it is cold and dry. If the tree has experienced stressful conditions, such as a drought, the tree might hardly grow at all during that time. Very old trees in particular can offer clues about what the climate was like long before measurements were recorded.</div>
+    <p class="footnote">*stump: 그루터기</p>
+    <div class="choices-text">
+      <div class="choice-txt ch" data-q="18" data-c="①" onclick="pick(18,'①')">① use of old trees to find direction</div>
+      <div class="choice-txt ch" data-q="18" data-c="②" onclick="pick(18,'②')">② traditional ways to predict weather</div>
+      <div class="choice-txt ch" data-q="18" data-c="③" onclick="pick(18,'③')">③ difficulty in measuring a tree's age</div>
+      <div class="choice-txt ch" data-q="18" data-c="④" onclick="pick(18,'④')">④ importance of protecting local trees</div>
+      <div class="choice-txt ch" data-q="18" data-c="⑤" onclick="pick(18,'⑤')">⑤ tree rings suggesting the past climate</div>
+      <button class="btn-chk" id="ck18" onclick="check(18)">정답 확인</button>
+    </div>
+    <div class="status" id="st18"></div>
+  </div>
+  <div class="acc-trg" id="at18" onclick="toggleAcc(18)">
+    <div class="acc-arr">▾</div>
+    <span class="acc-lbl">해 설</span>
+    <span class="acc-ans">⑤</span>
+    <span class="acc-hint">클릭하여 해설 열기</span>
+  </div>
+  <div class="acc-panel" id="ap18">
+    <div class="acc-inner">
+      <div class="comm-wrapper">
+<h2>🔍 4대 축 심층 분석 리포트</h2>
+        
+        <h3>1. 담화 표지 및 논리적 전개 (Metadiscourse)</h3>
+        <p>글은 <b>"In that respect"</b>라는 표지를 사용하여 칭찬이 인간관계에 이롭다는 전제에서 '사회적 거짓말'의 긍정적 측면으로 논의를 확장합니다. 거짓말이 <b>"self-interest"</b>와 <b>"interest of others"</b>라는 양방향의 이익을 모두 충족시킨다는 논리를 통해 대인관계에서의 역할을 설명합니다.</p>
+
+        <h3>2. 개념 층위 분석 (Concept Hierarchy)</h3>
+        <div class="analysis-grid">
+            <div class="box"><b>거시(Macro):</b> 사회적 거짓말은 인간관계의 조화를 도모하고 자존감을 보호하는 등 대인관계에 긍정적인 영향을 미침</div>
+            <div class="box"><b>미시(Micro):</b> 갈등 회피, 타인에게 기쁨 제공(자기 이익) 및 타인의 자신감 보호(타인 이익)를 위한 전략적 의사소통</div>
+        </div>
+
+        <h3>3. 어휘 연쇄 및 인캡슐레이션 (Lexical Chain)</h3>
+        <ul>
+            <li><b>관계 강화:</b> Social relationships ➔ Compliments ➔ Benefit mutual relations</li>
+            <li><b>거짓말의 동기:</b> Deceptive but flattering comments ➔ Psychological reasons ➔ Avoid awkward situations</li>
+            <li><b>핵심 통합(Encapsulation):</b> Protect self-esteem ➔ Damage confidence ➔ <b>Influence of social lies on interpersonal relationships</b></li>
+        </ul>
+
+        <h3>4. 논리 구조도 (Logical Framework Tree)</h3>
+        <div class="framework-step">
+            <b>Step 1 (Trigger):</b> 사람들은 칭찬받기를 좋아하며, 이는 인간관계를 원활하게 함
+        </div>
+        <div class="framework-step">
+            <b>Step 2 (Medium):</b> 사회적 거짓말은 갈등을 피하고(자기 이익), 상대의 자존감을 보호하는(타인 이익) 전략적 도구임
+        </div>
+        <div class="framework-step">
+            <b>Step 3 (Encapsulation):</b> 결과적으로 이는 대인관계에 영향을 미침 → 최종 주제: <b>사회적 거짓말이 대인관계에 미치는 영향</b>
+        </div>
+    </div>
+</div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="pcard" id="p19">
+  <div class="pcard-hd">
+    <span class="pnum">19.</span>
+    <span class="pdir">다음 글의 주제로 가장 적절한 것은?</span>
+    <span class="psrc">2019년 9월 · 인천교육청 23</span>
+  </div>
+  <div class="pcard-bd">
+    <div class="blank-passage">Social relationships benefit from people giving each other compliments now and again because people like to be liked and like to receive compliments. In that respect, social lies such as making deceptive but flattering comments ("I like your new haircut.") may benefit mutual relations. Social lies are told for psychological reasons and serve both self-interest and the interest of others. They serve self-interest because liars may gain satisfaction when they notice that their lies please other people, or because they realize that by telling such lies they avoid an awkward situation or discussion. They serve the interest of others because hearing the truth all the time ("You look much older now than you did a few years ago.") could damage a person's confidence and self-esteem.</div>
+    
+    <div class="choices-text">
+      <div class="choice-txt ch" data-q="19" data-c="①" onclick="pick(19,'①')">① ways to differentiate between truth and lies</div>
+      <div class="choice-txt ch" data-q="19" data-c="②" onclick="pick(19,'②')">② roles of self-esteem in building relationships</div>
+      <div class="choice-txt ch" data-q="19" data-c="③" onclick="pick(19,'③')">③ importance of praise in changing others' behaviors</div>
+      <div class="choice-txt ch" data-q="19" data-c="④" onclick="pick(19,'④')">④ balancing between self-interest and public interest</div>
+      <div class="choice-txt ch" data-q="19" data-c="⑤" onclick="pick(19,'⑤')">⑤ influence of social lies on interpersonal relationships</div>
+      <button class="btn-chk" id="ck19" onclick="check(19)">정답 확인</button>
+    </div>
+    <div class="status" id="st19"></div>
+  </div>
+  <div class="acc-trg" id="at19" onclick="toggleAcc(19)">
+    <div class="acc-arr">▾</div>
+    <span class="acc-lbl">해 설</span>
+    <span class="acc-ans">⑤</span>
+    <span class="acc-hint">클릭하여 해설 열기</span>
+  </div>
+  <div class="acc-panel" id="ap19">
+    <div class="acc-inner">
+      <div class="comm-wrapper">
+<h2>🔍 4대 축 심층 분석 리포트</h2>
+        
+        <h3>1. 담화 표지 및 논리적 전개 (Metadiscourse)</h3>
+        <p>글쓴이는 <b>"But"</b>을 기점으로 단순 정보(information)와 지식(knowledge)을 대조합니다. 지식은 판단이 개입되는 것이며, 이를 확인하고 다듬기 위해서는 <b>"speaking or writing"</b>이라는 출력 과정이 필수적임을 논리적으로 연결합니다. 마지막 문장 <b>"Thinking requires its expression."</b>은 글의 핵심을 관통하는 결론입니다.</p>
+
+        
+
+        <h3>2. 개념 층위 분석 (Concept Hierarchy)</h3>
+        <div class="analysis-grid">
+            <div class="box"><b>거시(Macro):</b> 진정한 사고의 명료화와 지식의 정교화는 표현(말하기/쓰기)을 통해서만 가능함</div>
+            <div class="box"><b>미시(Micro):</b> 사고의 오류를 발견하고 좋은 아이디어를 선별하는 비판적 성찰 과정</div>
+        </div>
+
+        <h3>3. 어휘 연쇄 및 인캡슐레이션 (Lexical Chain)</h3>
+        <ul>
+            <li><b>사고의 본질:</b> Judgements ➔ Details of thinking ➔ Bad/Good ideas</li>
+            <li><b>표현의 과정:</b> Conversation ➔ Speaking or writing ➔ Expression</li>
+            <li><b>핵심 통합(Encapsulation):</b> Polish ➔ Look back critically ➔ Uncover ➔ <b>Critical roles of speaking or writing in refining thoughts</b></li>
+        </ul>
+
+        <h3>4. 논리 구조도 (Logical Framework Tree)</h3>
+        <div class="framework-step">
+            <b>Step 1 (Trigger):</b> 정보와 달리 지식은 판단을 필요로 하며, 이는 대화나 스스로의 사고 속에서 다듬어짐
+        </div>
+        <div class="framework-step">
+            <b>Step 2 (Medium):</b> 말하거나 써내려가는 과정은 자신의 생각을 비판적으로 객관화하여 오류를 솎아내는 역할을 함
+        </div>
+        <div class="framework-step">
+            <b>Step 3 (Encapsulation):</b> 사고는 표현됨으로써 완성됨 → 최종 주제: <b>사고를 정교화하는 데 있어 말하기나 쓰기의 결정적 역할</b>
+        </div>
+    </div>
+</div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="pcard" id="p20">
+  <div class="pcard-hd">
+    <span class="pnum">20.</span>
+    <span class="pdir">다음 글의 주제로 가장 적절한 것은?</span>
+    <span class="psrc">2019년 11월 · 경기도교육청 23</span>
+  </div>
+  <div class="pcard-bd">
+    <div class="blank-passage">You can say that information sits in one brain until it is communicated to another, unchanged in the conversation. That's true of sheer information, like your phone number or the place you left your keys. But it's not true of knowledge. Knowledge relies on judgements, which you discover and polish in conversation with other people or with yourself. Therefore you don't learn the details of your thinking until speaking or writing it out in detail and looking back critically at the result. "Is what I just said foolish, or is what I just wrote a deep truth?" In the speaking or writing, you uncover your bad ideas, often embarrassing ones, and good ideas too, sometimes fame-making ones. Thinking requires its expression.</div>
+    
+    <div class="choices-text">
+      <div class="choice-txt ch" data-q="20" data-c="①" onclick="pick(20,'①')">① critical roles of speaking or writing in refining thoughts</div>
+      <div class="choice-txt ch" data-q="20" data-c="②" onclick="pick(20,'②')">② persuasive ways to communicate what you think to people</div>
+      <div class="choice-txt ch" data-q="20" data-c="③" onclick="pick(20,'③')">③ important tips to select the right information for your writing</div>
+      <div class="choice-txt ch" data-q="20" data-c="④" onclick="pick(20,'④')">④ positive effects of logical thinking on reading comprehension</div>
+      <div class="choice-txt ch" data-q="20" data-c="⑤" onclick="pick(20,'⑤')">⑤ enormous gaps between spoken language and written language</div>
+      <button class="btn-chk" id="ck20" onclick="check(20)">정답 확인</button>
+    </div>
+    <div class="status" id="st20"></div>
+  </div>
+  <div class="acc-trg" id="at20" onclick="toggleAcc(20)">
+    <div class="acc-arr">▾</div>
+    <span class="acc-lbl">해 설</span>
+    <span class="acc-ans">①</span>
+    <span class="acc-hint">클릭하여 해설 열기</span>
+  </div>
+  <div class="acc-panel" id="ap20">
+    <div class="acc-inner">
+      <div class="comm-wrapper">
+<h2>🔍 4대 축 심층 분석 리포트</h2>
+        
+        <h3>1. 담화 표지 및 논리적 전개 (Metadiscourse)</h3>
+        <p>글은 <b>"Storyteller Syd Lieberman suggests..."</b>라는 인용구를 통해 역사와 이야기의 결합이 기억에 효과적임을 시사합니다. 이후 <b>"In contrast"</b>라는 대조 표지를 사용하여 스토리텔링 방식과 전통적인 연구 방식의 연구 결과를 비교하며 스토리텔링의 우위를 논리적으로 입증합니다.</p>
+
+        
+
+        <h3>2. 개념 층위 분석 (Concept Hierarchy)</h3>
+        <div class="analysis-grid">
+            <div class="box"><b>거시(Macro):</b> 역사 교육에서 스토리텔링 기법은 사실 기반의 전통 방식보다 학습자의 흥미와 영향력 측면에서 더 효과적임</div>
+            <div class="box"><b>미시(Micro):</b> 극적인 맥락 제공, 그룹 토론 유도, 추가 독서 장려 등 구체적인 학습 과정의 차이</div>
+        </div>
+
+        <h3>3. 어휘 연쇄 및 인캡슐레이션 (Lexical Chain)</h3>
+        <ul>
+            <li><b>기억 전략:</b> Story in history ➔ Nail to hang facts on ➔ Tied to a story</li>
+            <li><b>실험 대조:</b> Dramatic context ➔ Group discussion ➔ Traditional research/report</li>
+            <li><b>핵심 통합(Encapsulation):</b> Personal impact ➔ Interest ➔ <b>Benefits of storytelling in teaching history</b></li>
+        </ul>
+
+        <h3>4. 논리 구조도 (Logical Framework Tree)</h3>
+        <div class="framework-step">
+            <b>Step 1 (Trigger):</b> 역사는 이야기와 결합될 때 학생들에게 더 잘 기억됨
+        </div>
+        <div class="framework-step">
+            <b>Step 2 (Medium):</b> 극적 맥락을 활용한 스토리텔링 교육은 학생들의 흥미와 몰입을 강화함
+        </div>
+        <div class="framework-step">
+            <b>Step 3 (Encapsulation):</b> 전통적 방식보다 효과적인 결과가 도출됨 → 최종 주제: <b>역사 교육에서 스토리텔링의 이점</b>
+        </div>
+    </div>
+</div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="pcard" id="p21">
+  <div class="pcard-hd">
+    <span class="pnum">21.</span>
+    <span class="pdir">다음 글의 주제로 가장 적절한 것은?</span>
+    <span class="psrc">2018년 3월 · 서울교육청 22</span>
+  </div>
+  <div class="pcard-bd">
+    <div class="blank-passage">Storyteller Syd Lieberman suggests that it is the story in history that provides the nail to hang facts on. Students remember historical facts when they are tied to a story. According to a report, a high school in Boulder, Colorado, is currently experimenting with a study of presentation of historical material. Storytellers present material in dramatic context to the students, and group discussion follows. Students are encouraged to read further. In contrast, another group of students is involved in traditional research/report techniques. The study indicates that the material presented by the storytellers has much more interest and personal impact than that gained via the traditional method.</div>
+    
+    <div class="choices-text">
+      <div class="choice-txt ch" data-q="21" data-c="①" onclick="pick(21,'①')">① why students should learn history</div>
+      <div class="choice-txt ch" data-q="21" data-c="②" onclick="pick(21,'②')">② essential elements of historical dramas</div>
+      <div class="choice-txt ch" data-q="21" data-c="③" onclick="pick(21,'③')">③ advantages of traditional teaching methods</div>
+      <div class="choice-txt ch" data-q="21" data-c="④" onclick="pick(21,'④')">④ benefits of storytelling in teaching history</div>
+      <div class="choice-txt ch" data-q="21" data-c="⑤" onclick="pick(21,'⑤')">⑤ importance of having balanced views on history</div>
+      <button class="btn-chk" id="ck21" onclick="check(21)">정답 확인</button>
+    </div>
+    <div class="status" id="st21"></div>
+  </div>
+  <div class="acc-trg" id="at21" onclick="toggleAcc(21)">
+    <div class="acc-arr">▾</div>
+    <span class="acc-lbl">해 설</span>
+    <span class="acc-ans">④</span>
+    <span class="acc-hint">클릭하여 해설 열기</span>
+  </div>
+  <div class="acc-panel" id="ap21">
+    <div class="acc-inner">
+      <div class="comm-wrapper">
+<h2>🔍 4대 축 심층 분석 리포트</h2>
+        
+        <h3>1. 담화 표지 및 논리적 전개 (Metadiscourse)</h3>
+        <p>글쓴이는 <b>"From this perspective"</b>와 <b>"Thus"</b>라는 연결어를 사용하여 인간이 소속감을 추구하는 근본적인 이유가 진화적 생존과 직결되어 있음을 논리적으로 귀결시킵니다.</p>
+
+        <h3>2. 개념 층위 분석 (Concept Hierarchy)</h3>
+        <div class="analysis-grid">
+            <div class="box"><b>거시(Macro):</b> 인간의 사회적 관계 형성 욕구는 진화 과정에서 생존을 보장하기 위한 필수적인 적응 전략이었음</div>
+            <div class="box"><b>미시(Micro):</b> 식량 확보, 포식자로부터의 보호, 지식 습득을 위해 협력해야 했던 초기 인류의 환경적 요구</div>
+        </div>
+
+        <h3>3. 어휘 연쇄 및 인캡슐레이션 (Lexical Chain)</h3>
+        <ul>
+            <li><b>관계 형성:</b> Interpersonal relationships ➔ Need to belong ➔ Social bonds</li>
+            <li><b>생존 전략:</b> Cooperation ➔ Supply of food, protection, knowledge ➔ Adapt to physical environments</li>
+            <li><b>핵심 통합(Encapsulation):</b> Vital for human survival ➔ <b>Need to build social bonds for human survival</b></li>
+        </ul>
+
+        <h3>4. 논리 구조도 (Logical Framework Tree)</h3>
+        <div class="framework-step">
+            <b>Step 1 (Trigger):</b> 인간은 본능적으로 소속감을 추구하며 이는 진화의 산물임
+        </div>
+        <div class="framework-step">
+            <b>Step 2 (Medium):</b> 인류는 역사적으로 협력을 통해 자원을 확보하고 위험에 대처해 왔음
+        </div>
+        <div class="framework-step">
+            <b>Step 3 (Encapsulation):</b> 사회적 유대는 생존을 위한 필수 조건임 → 최종 주제: <b>인간 생존을 위한 사회적 유대 형성의 필요성</b>
+        </div>
+    </div>
+</div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="pcard" id="p22">
+  <div class="pcard-hd">
+    <span class="pnum">22.</span>
+    <span class="pdir">다음 글의 주제로 가장 적절한 것은?</span>
+    <span class="psrc">2018년 6월 · 부산교육청 22</span>
+  </div>
+  <div class="pcard-bd">
+    <div class="blank-passage">Human beings are driven by a natural desire to form and maintain interpersonal relationships. From this perspective, people seek relationships with others to fill a fundamental need, and this need underlies many emotions, actions, and decisions throughout life. Probably, the need to belong is a product of human beings' evolutionary history as a social species. Human beings have long depended on the cooperation of others for the supply of food, protection from predators, and the acquisition of essential knowledge. Without the formation and maintenance of social bonds, early human beings probably would not have been able to cope with or adapt to their physical environments. Thus, seeking closeness and meaningful relationships has long been vital for human survival.</div>
+    
+    <div class="choices-text">
+      <div class="choice-txt ch" data-q="22" data-c="①" onclick="pick(22,'①')">① emotion as an essential factor in evolution</div>
+      <div class="choice-txt ch" data-q="22" data-c="②" onclick="pick(22,'②')">② difficulties in cooperating with other people</div>
+      <div class="choice-txt ch" data-q="22" data-c="③" onclick="pick(22,'③')">③ ways to keep close relationships with others</div>
+      <div class="choice-txt ch" data-q="22" data-c="④" onclick="pick(22,'④')">④ need to build social bonds for human survival</div>
+      <div class="choice-txt ch" data-q="22" data-c="⑤" onclick="pick(22,'⑤')">⑤ impact of human evolution on the environment</div>
+      <button class="btn-chk" id="ck22" onclick="check(22)">정답 확인</button>
+    </div>
+    <div class="status" id="st22"></div>
+  </div>
+  <div class="acc-trg" id="at22" onclick="toggleAcc(22)">
+    <div class="acc-arr">▾</div>
+    <span class="acc-lbl">해 설</span>
+    <span class="acc-ans">④</span>
+    <span class="acc-hint">클릭하여 해설 열기</span>
+  </div>
+  <div class="acc-panel" id="ap22">
+    <div class="acc-inner">
+      <div class="comm-wrapper">
+<h2>🔍 4대 축 심층 분석 리포트</h2>
+        
+        <h3>1. 담화 표지 및 논리적 전개 (Metadiscourse)</h3>
+        <p>글은 패스트 패션의 정의를 제시한 후, <b>"but they come with a serious price:"</b>를 기점으로 생산 현장의 인권 유린과 환경 오염이라는 두 가지 핵심적인 부정적 측면을 전개합니다.</p>
+
+        <h3>2. 개념 층위 분석 (Concept Hierarchy)</h3>
+        <div class="analysis-grid">
+            <div class="box"><b>거시(Macro):</b> 패스트 패션은 저렴한 가격 뒤에 심각한 인권적, 환경적 비용을 치르고 있음</div>
+            <div class="box"><b>미시(Micro):</b> 개발도상국 노동자의 열악한 노동 환경(sweatshops), 화학물질 사용, 폐기물 처리 문제</div>
+        </div>
+
+        <h3>3. 어휘 연쇄 및 인캡슐레이션 (Lexical Chain)</h3>
+        <ul>
+            <li><b>노동 문제:</b> Tens of millions of people, children ➔ dangerous conditions, sweatshops ➔ low pay</li>
+            <li><b>환경 문제:</b> Toxic chemicals ➔ second-largest polluter ➔ landfills</li>
+            <li><b>핵심 통합(Encapsulation):</b> Serious price ➔ hurts the environment ➔ <b>problems behind the fast fashion industry</b></li>
+        </ul>
+
+        <h3>4. 논리 구조도 (Logical Framework Tree)</h3>
+        <div class="framework-step">
+            <b>Step 1 (Trigger):</b> 패스트 패션은 트렌디한 옷을 빠르게 저가로 공급하는 산업임
+        </div>
+        <div class="framework-step">
+            <b>Step 2 (Medium):</b> 이 산업은 노동 착취와 대규모 환경 오염이라는 심각한 대가를 요구함
+        </div>
+        <div class="framework-step">
+            <b>Step 3 (Encapsulation):</b> 산업 이면의 부작용을 고발함 → 최종 주제: <b>패스트 패션 산업 이면의 문제점들</b>
+        </div>
+    </div>
+</div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="pcard" id="p23">
+  <div class="pcard-hd">
+    <span class="pnum">23.</span>
+    <span class="pdir">다음 글의 주제로 가장 적절한 것은?</span>
+    <span class="psrc">2018년 9월 · 인천교육청 22</span>
+  </div>
+  <div class="pcard-bd">
+    <div class="blank-passage">Fast fashion refers to trendy clothes designed, created, and sold to consumers as quickly as possible at extremely low prices. Fast fashion items may not cost you much at the cash register, but they come with a serious price: tens of millions of people in developing countries, some just children, work long hours in dangerous conditions to make them, in the kinds of factories often labeled sweatshops. Most garment workers are paid barely enough to survive. Fast fashion also hurts the environment. Garments are manufactured using toxic chemicals and then transported around the globe, making the fashion industry the world's second-largest polluter, after the oil industry. And millions of tons of discarded clothing piles up in landfills each year.</div>
+    <p class="footnote">*sweatshop: 노동착취공장</p>
+    <div class="choices-text">
+      <div class="choice-txt ch" data-q="23" data-c="①" onclick="pick(23,'①')">① problems behind the fast fashion industry</div>
+      <div class="choice-txt ch" data-q="23" data-c="②" onclick="pick(23,'②')">② positive impacts of fast fashion on lifestyle</div>
+      <div class="choice-txt ch" data-q="23" data-c="③" onclick="pick(23,'③')">③ reasons why the fashion industry is growing</div>
+      <div class="choice-txt ch" data-q="23" data-c="④" onclick="pick(23,'④')">④ the need for improving working environment</div>
+      <div class="choice-txt ch" data-q="23" data-c="⑤" onclick="pick(23,'⑤')">⑤ the seriousness of air pollution in developing countries</div>
+      <button class="btn-chk" id="ck23" onclick="check(23)">정답 확인</button>
+    </div>
+    <div class="status" id="st23"></div>
+  </div>
+  <div class="acc-trg" id="at23" onclick="toggleAcc(23)">
+    <div class="acc-arr">▾</div>
+    <span class="acc-lbl">해 설</span>
+    <span class="acc-ans">①</span>
+    <span class="acc-hint">클릭하여 해설 열기</span>
+  </div>
+  <div class="acc-panel" id="ap23">
+    <div class="acc-inner">
+      <div class="comm-wrapper">
+<h2>🔍 4대 축 심층 분석 리포트</h2>
+        
+        <h3>1. 담화 표지 및 논리적 전개 (Metadiscourse)</h3>
+        <p>글은 <b>"When we read..."</b>를 통해 숫자 처리의 인지적 특성을 먼저 설명한 뒤, <b>"Since the nineteenth century,"</b>와 <b>"In 2008,"</b> 같은 시점 기반의 표지를 사용하여 이 심리적 특성이 어떻게 상업적 전략(끝자리 9 가격 책정)으로 활용되어 왔는지를 논리적으로 증명합니다.</p>
+
+        <h3>2. 개념 층위 분석 (Concept Hierarchy)</h3>
+        <div class="analysis-grid">
+            <div class="box"><b>거시(Macro):</b> 소비자의 인지 방식(왼쪽 숫자 우선 처리)을 이용한 가격 책정 전략이 판매에 유의미한 영향을 미침</div>
+            <div class="box"><b>미시(Micro):</b> 799와 800 사이의 심리적 거리감과 실제 구매 전환율(피자 사례)의 상승</div>
+        </div>
+
+        <h3>3. 어휘 연쇄 및 인캡슐레이션 (Lexical Chain)</h3>
+        <ul>
+            <li><b>인지적 편향:</b> Leftmost digit ➔ Process ➔ 7-something/8-something</li>
+            <li><b>상업적 활용:</b> Shopkeepers ➔ Prices ending in a 9 ➔ Impression of cheaper</li>
+            <li><b>통합 결과(Encapsulation):</b> Experienced shoppers ➔ Fooled ➔ Sales rose ➔ <b>Pricing strategy using the way people read numbers</b></li>
+        </ul>
+
+        <h3>4. 논리 구조도 (Logical Framework Tree)</h3>
+        <div class="framework-step">
+            <b>Step 1 (Trigger):</b> 인간은 왼쪽 숫자를 먼저 처리하므로 숫자를 읽는 방식에 편향이 존재함
+        </div>
+        <div class="framework-step">
+            <b>Step 2 (Medium):</b> 상인들은 이러한 심리를 이용하여 가격 끝자리를 9로 설정함으로써 저렴하다는 착각을 유도함
+        </div>
+        <div class="framework-step">
+            <b>Step 3 (Encapsulation):</b> 이러한 전략은 실제 판매량 증가로 이어짐 → 최종 주제: <b>사람들이 숫자를 읽는 방식을 이용한 가격 책정 전략</b>
+        </div>
+    </div>
+</div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="pcard" id="p24">
+  <div class="pcard-hd">
+    <span class="pnum">24.</span>
+    <span class="pdir">다음 글의 주제로 가장 적절한 것은?</span>
+    <span class="psrc">2018년 11월 · 경기도교육청 22</span>
+  </div>
+  <div class="pcard-bd">
+    <div class="blank-passage">When we read a number, we are more influenced by the leftmost digit than by the rightmost, since that is the order in which we read, and process, them. The number 799 feels significantly less than 800 because we see the former as 7-something and the latter as 8-something, whereas 798 feels pretty much like 799. Since the nineteenth century, shopkeepers have taken advantage of this trick by choosing prices ending in a 9, to give the impression that a product is cheaper than it is. Surveys show that around a third to two-thirds of all retail prices now end in a 9. Though we are all experienced shoppers, we are still fooled. In 2008, researchers at the University of Southern Brittany monitored a local pizza restaurant that was serving five types of pizza at €8.00 each. When one of the pizzas was reduced in price to €7.99, its share of sales rose from a third of the total to a half.</div>
+    
+    <div class="choices-text">
+      <div class="choice-txt ch" data-q="24" data-c="①" onclick="pick(24,'①')">① pricing strategy using the way people read numbers</div>
+      <div class="choice-txt ch" data-q="24" data-c="②" onclick="pick(24,'②')">② consumption patterns reflecting local economic trends</div>
+      <div class="choice-txt ch" data-q="24" data-c="③" onclick="pick(24,'③')">③ adding numbers to strengthen the credibility of sellers</div>
+      <div class="choice-txt ch" data-q="24" data-c="④" onclick="pick(24,'④')">④ causal relationship between market sizes and product prices</div>
+      <div class="choice-txt ch" data-q="24" data-c="⑤" onclick="pick(24,'⑤')">⑤ sales tricks to fool customers by changing store environments</div>
+      <button class="btn-chk" id="ck24" onclick="check(24)">정답 확인</button>
+    </div>
+    <div class="status" id="st24"></div>
+  </div>
+  <div class="acc-trg" id="at24" onclick="toggleAcc(24)">
+    <div class="acc-arr">▾</div>
+    <span class="acc-lbl">해 설</span>
+    <span class="acc-ans">①</span>
+    <span class="acc-hint">클릭하여 해설 열기</span>
+  </div>
+  <div class="acc-panel" id="ap24">
+    <div class="acc-inner">
+      <div class="comm-wrapper">
+<h2>🔍 4대 축 심층 분석 리포트</h2>
+        
+        <h3>1. 담화 표지 및 논리적 전개 (Metadiscourse)</h3>
+        <p>글은 <b>"Thus"</b>라는 인과 관계 표지를 사용하여 교실 내 소음이 학생의 주의력과 의사소통에 미치는 부정적 영향이 학업 성취도 저하로 이어진다는 결론을 도출합니다.</p>
+
+        <h3>2. 개념 층위 분석 (Concept Hierarchy)</h3>
+        <div class="analysis-grid">
+            <div class="box"><b>거시(Macro):</b> 교실 환경의 소음 수준은 아동 및 학생의 학업 성취도에 직접적인 부정적 영향을 미침</div>
+            <div class="box"><b>미시(Micro):</b> 소음 감소 시 나타나는 구어 능력 향상과, 소음 환경에서의 독해 및 수학 시험 성적 저하 현상</div>
+        </div>
+
+        <h3>3. 어휘 연쇄 및 인캡슐레이션 (Lexical Chain)</h3>
+        <ul>
+            <li><b>소음의 영향:</b> Noise ➔ Negative effects ➔ Attention/Communication</li>
+            <li><b>학업 성취:</b> Academic achievement ➔ Reading ➔ Math tests</li>
+            <li><b>핵심 통합(Encapsulation):</b> Reduced noise levels ➔ Performance improved ➔ Perform below in noisy settings ➔ <b>Impacts of noise on academic achievement</b></li>
+        </ul>
+
+        <h3>4. 논리 구조도 (Logical Framework Tree)</h3>
+        <div class="framework-step">
+            <b>Step 1 (Trigger):</b> 소음은 의사소통과 주의력을 방해함
+        </div>
+        <div class="framework-step">
+            <b>Step 2 (Medium):</b> 미취학 아동부터 고등학생까지, 소음을 줄인 환경에서 학습 능력이 향상됨이 관찰됨
+        </div>
+        <div class="framework-step">
+            <b>Step 3 (Encapsulation):</b> 소음 환경과 낮은 학업 성취 사이의 상관관계가 입증됨 → 최종 주제: <b>학업 성취도에 미치는 소음의 영향</b>
+        </div>
+    </div>
+</div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="pcard" id="p25">
+  <div class="pcard-hd">
+    <span class="pnum">25.</span>
+    <span class="pdir">다음 글의 주제로 가장 적절한 것은?</span>
+    <span class="psrc">2017년 3월 · 서울교육청 21</span>
+  </div>
+  <div class="pcard-bd">
+    <div class="blank-passage">Noise in the classroom has negative effects on communication patterns and the ability to pay attention. Thus, it is not surprising that constant exposure to noise is related to children's academic achievement, particularly in its negative effects on reading and learning to read. Some researchers found that, when preschool classrooms were changed to reduce noise levels, the children spoke to each other more often and in more complete sentences, and their performance on prereading tests improved. Research with older children suggests similar findings. On reading and math tests, elementary and high school students in noisy schools or classrooms consistently perform below those in quieter settings.</div>
+    
+    <div class="choices-text">
+      <div class="choice-txt ch" data-q="25" data-c="①" onclick="pick(25,'①')">① impacts of noise on academic achievement</div>
+      <div class="choice-txt ch" data-q="25" data-c="②" onclick="pick(25,'②')">② new trends in classroom design</div>
+      <div class="choice-txt ch" data-q="25" data-c="③" onclick="pick(25,'③')">③ ways to control a noisy class</div>
+      <div class="choice-txt ch" data-q="25" data-c="④" onclick="pick(25,'④')">④ various kinds of reading activities</div>
+      <div class="choice-txt ch" data-q="25" data-c="⑤" onclick="pick(25,'⑤')">⑤ roles of reading in improving writing skills</div>
+      <button class="btn-chk" id="ck25" onclick="check(25)">정답 확인</button>
+    </div>
+    <div class="status" id="st25"></div>
+  </div>
+  <div class="acc-trg" id="at25" onclick="toggleAcc(25)">
+    <div class="acc-arr">▾</div>
+    <span class="acc-lbl">해 설</span>
+    <span class="acc-ans">①</span>
+    <span class="acc-hint">클릭하여 해설 열기</span>
+  </div>
+  <div class="acc-panel" id="ap25">
+    <div class="acc-inner">
+      <div class="comm-wrapper">
+<h2>🔍 4대 축 심층 분석 리포트</h2>
+        
+        <h3>1. 담화 표지 및 논리적 전개 (Metadiscourse)</h3>
+        <p>글쓴이는 <b>"However"</b>라는 역접 표지를 통해 개가 방향을 전환할 때 발생하는 불안정한 움직임(swings wide, fall over)을 꼬리가 어떻게 상쇄하여 균형을 유지하는지 설명합니다.</p>
+
+        <h3>2. 개념 층위 분석 (Concept Hierarchy)</h3>
+        <div class="analysis-grid">
+            <div class="box"><b>거시(Macro):</b> 개의 꼬리는 고속 방향 전환 시 발생하는 원심력을 조절하여 몸의 균형을 잡아주는 핵심 기관임</div>
+            <div class="box"><b>미시(Micro):</b> 방향 전환 시 몸의 뒷부분이 쏠리는 물리적 현상과 이를 방지하기 위한 꼬리의 움직임</div>
+        </div>
+
+        <h3>3. 어휘 연쇄 및 인캡슐레이션 (Lexical Chain)</h3>
+        <ul>
+            <li><b>불안정한 전환:</b> Change directions ➔ Turn quickly ➔ Hind part swinging wide</li>
+            <li><b>균형 유지 전략:</b> Prevent falling ➔ Tail ➔ Reduce tendency to spin off course</li>
+            <li><b>핵심 통합(Encapsulation):</b> Prevent ➔ Reduce tendency ➔ <b>Role of a dog’s tail in keeping balance</b></li>
+        </ul>
+
+        <h3>4. 논리 구조도 (Logical Framework Tree)</h3>
+        <div class="framework-step">
+            <b>Step 1 (Trigger):</b> 개가 빨리 방향을 바꿀 때 몸의 뒷부분이 원심력에 의해 바깥으로 밀려나 넘어질 위험이 있음
+        </div>
+        <div class="framework-step">
+            <b>Step 2 (Medium):</b> 이때 꼬리를 몸이 도는 방향과 같은 방향으로 휘둘러 물리적 균형을 조절함
+        </div>
+        <div class="framework-step">
+            <b>Step 3 (Encapsulation):</b> 꼬리는 탈선을 막고 안정적인 주행을 돕는 균형추임 → 최종 주제: <b>균형 유지를 위한 개의 꼬리의 역할</b>
+        </div>
+    </div>
+</div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="pcard" id="p26">
+  <div class="pcard-hd">
+    <span class="pnum">26.</span>
+    <span class="pdir">다음 글의 주제로 가장 적절한 것은?</span>
+    <span class="psrc">2017년 6월 · 부산교육청 22</span>
+  </div>
+  <div class="pcard-bd">
+    <div class="blank-passage">Have you ever wondered why a dog doesn't fall over when he changes directions while running? When a dog is running and has to turn quickly, he throws the front part of his body in the direction he wants to go. His back then bends, but his hind part will still continue in the original direction. Naturally, this turning movement might result in the dog's hind part swinging wide. And this could greatly slow his rate of movement or even cause the dog to fall over as he tries to make a high-speed turn. However, the dog's tail helps to prevent this. Throwing his tail in the same direction that his body is turning serves to reduce the tendency to spin off course.</div>
+    <p class="footnote">*hind: 뒤쪽의</p>
+    <div class="choices-text">
+      <div class="choice-txt ch" data-q="26" data-c="①" onclick="pick(26,'①')">① effects of a dog's weight on its speed</div>
+      <div class="choice-txt ch" data-q="26" data-c="②" onclick="pick(26,'②')">② role of a dog's tail in keeping balance</div>
+      <div class="choice-txt ch" data-q="26" data-c="③" onclick="pick(26,'③')">③ factors causing a dog's bad behaviors</div>
+      <div class="choice-txt ch" data-q="26" data-c="④" onclick="pick(26,'④')">④ importance of training a dog properly</div>
+      <div class="choice-txt ch" data-q="26" data-c="⑤" onclick="pick(26,'⑤')">⑤ reasons why a dog jumps on people</div>
+      <button class="btn-chk" id="ck26" onclick="check(26)">정답 확인</button>
+    </div>
+    <div class="status" id="st26"></div>
+  </div>
+  <div class="acc-trg" id="at26" onclick="toggleAcc(26)">
+    <div class="acc-arr">▾</div>
+    <span class="acc-lbl">해 설</span>
+    <span class="acc-ans">②</span>
+    <span class="acc-hint">클릭하여 해설 열기</span>
+  </div>
+  <div class="acc-panel" id="ap26">
+    <div class="acc-inner">
+      <div class="comm-wrapper">
+<h2>🔍 4대 축 심층 분석 리포트</h2>
+        
+        <h3>1. 담화 표지 및 논리적 전개 (Metadispourse)</h3>
+        <p>글쓴이는 <b>"If you’d rather..."</b>를 통해 구매(shopping) 대신 창작(creating)이라는 대안적 행복 추구 방식을 제안합니다. <b>"However"</b>와 <b>"Even if"</b>를 사용하여 창작 활동의 비용적 측면까지 고려하더라도, 결과적으로 기술(skill)을 쌓는 것이 물건의 가치 하락을 동반하는 단순 쇼핑보다 더 나은 가치를 제공한다는 점을 논리적으로 설득합니다.</p>
+
+        <h3>2. 개념 층위 분석 (Concept Hierarchy)</h3>
+        <div class="analysis-grid">
+            <div class="box"><b>거시(Macro):</b> 단순 소비 중심의 취미보다는 지속적인 스킬 습득이 가능한 창작 활동이 경제적/심리적으로 더 우월함</div>
+            <div class="box"><b>미시(Micro):</b> 구매의 만족감은 일시적이나, 창작의 만족감은 새로운 자산을 남기며 스킬 빌딩으로 이어짐</div>
+        </div>
+
+        <h3>3. 어휘 연쇄 및 인캡슐레이션 (Lexical Chain)</h3>
+        <ul>
+            <li><b>소비 활동:</b> Shopping, Buying, Collection of stuff ➔ Decreasing in value</li>
+            <li><b>창작 활동:</b> Creating, Making things, Draw, Write ➔ Skill</li>
+            <li><b>핵심 통합(Encapsulation):</b> Satisfaction ➔ Temporary ➔ Building a skill ➔ <b>Why creating things is better than shopping</b></li>
+        </ul>
+
+        <h3>4. 논리 구조도 (Logical Framework Tree)</h3>
+        <div class="framework-step">
+            <b>Step 1 (Trigger):</b> 소비는 단순한 취미가 될 수 있으나, 일시적인 만족감을 제공함
+        </div>
+        <div class="framework-step">
+            <b>Step 2 (Medium):</b> 창작은 소비와 유사한 만족감을 주지만, 더 지속적이고 내적인 성장을 가져옴
+        </div>
+        <div class="framework-step">
+            <b>Step 3 (Encapsulation):</b> 물건 수집보다는 스킬 축적이 가치 있음 → 최종 주제: <b>쇼핑보다 창작 활동이 더 나은 이유</b>
+        </div>
+    </div>
+</div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="pcard" id="p27">
+  <div class="pcard-hd">
+    <span class="pnum">27.</span>
+    <span class="pdir">다음 글의 주제로 가장 적절한 것은?</span>
+    <span class="psrc">2017년 9월 · 인천교육청 22</span>
+  </div>
+  <div class="pcard-bd">
+    <div class="blank-passage">Shopping for new gadgets, clothes, or just random junk can turn into a hobby in itself. If you'd rather save your money, try finding pleasure in creating things rather than buying things. We get the same kind of satisfaction from making things that we do from buying things. If you draw something you're proud of or write something you enjoy, you've now got a new thing in your life that makes you happy. Buying a new gadget might give you a similar rush, but it's also probably more temporary. Of course, our recommendation can cost money, too. However, when you can't spend money, you can always learn more about your craft online or practice with what you already have. Even if you end up spending money making things yourself, you're at least building a skill rather than a collection of stuff that's quickly decreasing in value.</div>
+    
+    <div class="choices-text">
+      <div class="choice-txt ch" data-q="27" data-c="①" onclick="pick(27,'①')">① misconceptions about gadget collecting as a hobby</div>
+      <div class="choice-txt ch" data-q="27" data-c="②" onclick="pick(27,'②')">② why creating things is better than shopping</div>
+      <div class="choice-txt ch" data-q="27" data-c="③" onclick="pick(27,'③')">③ negative effects of expensive hobbies</div>
+      <div class="choice-txt ch" data-q="27" data-c="④" onclick="pick(27,'④')">④ ways to purchase clothing wisely</div>
+      <div class="choice-txt ch" data-q="27" data-c="⑤" onclick="pick(27,'⑤')">⑤ shopping for clothes as a hobby</div>
+      <button class="btn-chk" id="ck27" onclick="check(27)">정답 확인</button>
+    </div>
+    <div class="status" id="st27"></div>
+  </div>
+  <div class="acc-trg" id="at27" onclick="toggleAcc(27)">
+    <div class="acc-arr">▾</div>
+    <span class="acc-lbl">해 설</span>
+    <span class="acc-ans">②</span>
+    <span class="acc-hint">클릭하여 해설 열기</span>
+  </div>
+  <div class="acc-panel" id="ap27">
+    <div class="acc-inner">
+      <div class="comm-wrapper">
+<h2>🔍 4대 축 심층 분석 리포트</h2>
+        
+        <h3>1. 담화 표지 및 논리적 전개 (Metadiscourse)</h3>
+        <p>글쓴이는 <b>"For example"</b>을 통해 피카소의 입체파 예술을 예시로 들어, 기존의 고정관념을 뒤집는 경험이 왜 흥미로운지를 설명합니다. 또한 <b>"Yet"</b>이라는 역접 표지를 통해 혼란스러운 첫인상이 두 번째 관찰을 통해 어떻게 새로운 시각적 통합으로 바뀌는지를 단계적으로 서술합니다.</p>
+
+        <h3>2. 개념 층위 분석 (Concept Hierarchy)</h3>
+        <div class="analysis-grid">
+            <div class="box"><b>거시(Macro):</b> 익숙한 가정과 세상을 다른 각도에서 바라보는 예술적 경험은 내면적인 만족감(intrinsic pleasure)을 제공함</div>
+            <div class="box"><b>미시(Micro):</b> 형태, 물체, 색채를 활용하는 대안적 방식을 통한 기존 사고방식(assumptions)의 해체와 재구성</div>
+        </div>
+
+        <h3>3. 어휘 연쇄 및 인캡슐레이션 (Lexical Chain)</h3>
+        <ul>
+            <li><b>사고의 전환:</b> Assumptions turned inside out ➔ See the world differently</li>
+            <li><b>예술적 기법:</b> Cubism ➔ Abstract forms ➔ Alternative ways</li>
+            <li><b>핵심 통합(Encapsulation):</b> Challenged assumptions ➔ Different angles ➔ <b>Inner pleasure driven by viewing the world from different angles</b></li>
+        </ul>
+
+        <h3>4. 논리 구조도 (Logical Framework Tree)</h3>
+        <div class="framework-step">
+            <b>Step 1 (Trigger):</b> 인간은 기존의 가정이 뒤집히는 경험에서 매력을 느낌
+        </div>
+        <div class="framework-step">
+            <b>Step 2 (Medium):</b> 피카소의 입체파 작품은 공간과 사물을 다르게 사용함으로써 고정관념을 타파함
+        </div>
+        <div class="framework-step">
+            <b>Step 3 (Encapsulation):</b> 세상을 다르게 보는 대안적 관점은 내적 즐거움을 가져다줌 → 최종 주제: <b>다른 각도에서 세상을 보는 것으로부터 비롯되는 내적 즐거움</b>
+        </div>
+    </div>
+</div>
+
+</body></html>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="pcard" id="p28">
+  <div class="pcard-hd">
+    <span class="pnum">28.</span>
+    <span class="pdir">다음 글의 주제로 가장 적절한 것은?</span>
+    <span class="psrc">2017년 11월 · 경기도교육청 21</span>
+  </div>
+  <div class="pcard-bd">
+    <div class="blank-passage">Sometimes, we are fascinated when our assumptions are turned inside out and around. The artist Pablo Picasso, for example, used Cubism as a way to help us see the world differently. In his famous work <em>Three Musicians</em>, he used abstract forms to shape the players in such an unexpected way that when you first see this artwork, you assume that nothing makes sense. Yet when you look at the painting a second time, the figures come together. Picasso's work challenges your assumptions about how space and objects are used. His artwork helps you see the world differently and reminds you there are alternative ways of using shape, objects, and colors. The reward for this is the intrinsic pleasure you get by looking at this work.</div>
+    
+    <div class="choices-text">
+      <div class="choice-txt ch" data-q="28" data-c="①" onclick="pick(28,'①')">① emotional intelligence enhanced by appreciating Cubist artworks</div>
+      <div class="choice-txt ch" data-q="28" data-c="②" onclick="pick(28,'②')">② inner pleasure driven by viewing the world from different angles</div>
+      <div class="choice-txt ch" data-q="28" data-c="③" onclick="pick(28,'③')">③ abstract style formed by balancing reality with fantasy</div>
+      <div class="choice-txt ch" data-q="28" data-c="④" onclick="pick(28,'④')">④ artists' guild organized by cooperating with cultural institutions</div>
+      <div class="choice-txt ch" data-q="28" data-c="⑤" onclick="pick(28,'⑤')">⑤ great challenges experienced by musicians in the modern world</div>
+      <button class="btn-chk" id="ck28" onclick="check(28)">정답 확인</button>
+    </div>
+    <div class="status" id="st28"></div>
+  </div>
+  <div class="acc-trg" id="at28" onclick="toggleAcc(28)">
+    <div class="acc-arr">▾</div>
+    <span class="acc-lbl">해 설</span>
+    <span class="acc-ans">②</span>
+    <span class="acc-hint">클릭하여 해설 열기</span>
+  </div>
+  <div class="acc-panel" id="ap28">
+    <div class="acc-inner">
+      <div class="comm-wrapper">
+<h2>🔍 4대 축 심층 분석 리포트</h2>
+        
+        <h3>1. 담화 표지 및 논리적 전개 (Metadiscourse)</h3>
+        <p>글쓴이는 <b>"For example"</b>을 통해 피카소의 입체파 예술을 예시로 들어, 기존의 고정관념을 뒤집는 경험이 왜 흥미로운지를 설명합니다. 또한 <b>"Yet"</b>이라는 역접 표지를 통해 혼란스러운 첫인상이 두 번째 관찰을 통해 어떻게 새로운 시각적 통합으로 바뀌는지를 단계적으로 서술합니다.</p>
+
+        <h3>2. 개념 층위 분석 (Concept Hierarchy)</h3>
+        <div class="analysis-grid">
+            <div class="box"><b>거시(Macro):</b> 익숙한 가정과 세상을 다른 각도에서 바라보는 예술적 경험은 내면적인 만족감(intrinsic pleasure)을 제공함</div>
+            <div class="box"><b>미시(Micro):</b> 형태, 물체, 색채를 활용하는 대안적 방식을 통한 기존 사고방식(assumptions)의 해체와 재구성
+      </div>
+    </div>
+  </div>
+</div>
+</main>
+<script>
+const ANS={1: '①', 2: '②', 3: '②', 4: '④', 5: '①', 6: '②', 7: '②', 8: '⑤', 9: '①', 10: '①', 11: '①', 12: '②', 13: '③', 14: '②', 15: '①', 16: '①', 17: '③', 18: '⑤', 19: '⑤', 20: '①', 21: '④', 22: '④', 23: '①', 24: '①', 25: '①', 26: '②', 27: '②', 28: '②'};
+const picked={},done={};
+function pick(n,c){if(done[n])return;picked[n]=c;document.querySelectorAll(`.ch[data-q="${n}"]`).forEach(el=>el.classList.toggle('picked',el.dataset.c===c));updateProg();}
+function check(n){if(done[n])return;done[n]=true;const sel=picked[n],cor=ANS[n];document.querySelectorAll(`.ch[data-q="${n}"]`).forEach(el=>{el.classList.remove('picked');if(el.dataset.c===cor)el.classList.add('c-ok');else if(el.dataset.c===sel)el.classList.add('c-no');});const st=document.getElementById('st'+n);if(st){if(!sel){st.textContent='정답: '+cor;st.className='status ok';}else if(sel===cor){st.textContent='✓ 정답입니다!';st.className='status ok';}else{st.textContent='✗ 오답 — 정답: '+cor;st.className='status no';}}document.getElementById('ck'+n)?.classList.add('locked');openAcc(n);}
+function checkAll(){for(let n=1;n<=28;n++)if(!done[n])check(n);}
+function toggleAcc(n){const p=document.getElementById('ap'+n),t=document.getElementById('at'+n);const o=p.classList.toggle('open');t.classList.toggle('open',o);t.querySelector('.acc-hint').textContent=o?'클릭하여 닫기':'클릭하여 해설 열기';}
+function openAcc(n){const p=document.getElementById('ap'+n),t=document.getElementById('at'+n);if(p&&!p.classList.contains('open')){p.classList.add('open');t.classList.add('open');t.querySelector('.acc-hint').textContent='클릭하여 닫기';}}
+function updateProg(){const n=Object.keys(picked).length;document.getElementById('pf').style.width=(n/28*100)+'%';document.getElementById('pt').textContent=n+'/28 풀이 중';}
+</script></body></html>
